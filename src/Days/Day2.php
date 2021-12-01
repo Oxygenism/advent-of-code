@@ -6,7 +6,7 @@ use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 use App\Advent\Utility\Logger;
 
-class day0
+class Day2
 {
     private DataService $dataService;
     private Logger $logger;
@@ -19,8 +19,8 @@ class day0
 
     public function runA()
     {
-        $this->logger->log("=== DAY 0 A ===");
-        $handle = $this->dataService->read("day0_test.txt");
+        $this->logger->log("=== DAY 2 A ===");
+        $handle = $this->dataService->read("day2_test.txt");
 
 
 
@@ -30,8 +30,8 @@ class day0
 
     public function runB()
     {
-        $this->logger->log("=== DAY 0 B ===");
-        $handle = $this->dataService->read("day0_test.txt");
+        $this->logger->log("=== DAY 2 B ===");
+        $handle = $this->dataService->read("day2_test.txt");
 
 
 

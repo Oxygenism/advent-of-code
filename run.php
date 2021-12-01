@@ -3,15 +3,28 @@
 require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
-use App\Advent\Days\Day0;
+use App\Advent\Utility\DataService;
+use App\Advent\Utility\Logger;
 use App\Advent\Days\Day1;
+use App\Advent\Days\Day2;
 
-////Day0
-//$day0 = new Day0();
-//$day0->runA();
-//$day0->runB();
 
-//Day0
-$day0 = new Day1();
-$day0->runA();
-$day0->runB();
+$logger = new Logger();
+$dataService = new DataService();
+$logger->unlink();
+
+$handle = $dataService->read('introduction.txt');
+foreach ($handle as $line) {
+    $logger->log($line);
+}
+
+$days = [
+    new Day1(),
+    new Day2()
+];
+
+foreach ($days as $day) {
+    $day->RunA();
+    $day->RunB();
+}
+

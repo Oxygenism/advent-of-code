@@ -6,15 +6,31 @@ namespace App\Advent\Utility;
 
 class Logger
 {
+    const LOG_PATH = DOCUMENT_ROOT .'/var/log/';
+    const LOG_FILE_NAME = self::LOG_PATH . 'output.log';
+
     function log($log_msg)
     {
-        $log_filename = DOCUMENT_ROOT .'/var/log/output.log';
-        if (!file_exists($log_filename))
+        if (!file_exists(self::LOG_PATH))
         {
             // create directory/folder uploads.
-            mkdir($log_filename, 0777, true);
+            mkdir(self::LOG_PATH, 777, true);
         }
+
+        if(!strstr(strval($log_msg), PHP_EOL)) {
+            $log_msg .= "\n";
+        }
+
         // if you don't add `FILE_APPEND`, the file will be erased each time you add a log
-        file_put_contents($log_filename, $log_msg . "\n", FILE_APPEND);
+        file_put_contents(self::LOG_FILE_NAME, $log_msg, FILE_APPEND);
+    }
+
+    function unlink()
+    {
+        if (file_exists(self::LOG_FILE_NAME))
+        {
+            unlink(self::LOG_FILE_NAME);
+        }
+
     }
 }
