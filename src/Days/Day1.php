@@ -22,10 +22,12 @@ class day1
         $this->logger->log("=== DAY 1 A ===");
         $values = $this->dataService->read("day1.txt");
 
-        $prev = 0;
+        $prev = $values->current();
         $count = 0;
+
+        $values->next();
         foreach ($values as $value) {
-            if ($value > $prev && $prev !== 0) {
+            if ($value > $prev) {
                 $count++;
             }
 
@@ -56,8 +58,7 @@ class day1
         while ($handle->valid()) {
             $prev = $current;
 
-            $current[0] = $prev[1];
-            $current[1] = $prev[2];
+            array_shift($current);
             $current[2] = $handle->current();
 
             if (array_sum($current) > array_sum($prev)) {
