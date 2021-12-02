@@ -54,6 +54,8 @@ class Day2
             }
         }
 
+        $h = $d = $a = 0;
+
         return $horizontal * $depth;
     }
 }
