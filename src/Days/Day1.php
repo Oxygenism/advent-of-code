@@ -4,22 +4,18 @@ namespace App\Advent\Days;
 
 use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
-use App\Advent\Utility\Logger;
 
-class day1
+class Day1
 {
     private DataService $dataService;
-    private Logger $logger;
 
     #[Pure] public function __construct()
     {
         $this->dataService = new DataService();
-        $this->logger = new Logger();
     }
 
     public function runA()
     {
-        $this->logger->log("=== DAY 1 A ===");
         $values = $this->dataService->read("day1.txt");
 
         $prev = $values->current();
@@ -34,8 +30,7 @@ class day1
             $prev = $value;
         }
 
-        $this->logger->log($count);
-        $this->logger->log('');
+        return $count;
     }
 
     /**
@@ -43,7 +38,6 @@ class day1
      */
     public function runB()
     {
-        $this->logger->log("=== DAY 1 B ===");
         $handle = $this->dataService->read("day1.txt");
 
         $prev = [];
@@ -68,7 +62,6 @@ class day1
             $handle->next();
         }
 
-        $this->logger->log($count);
-        $this->logger->log('');
+        return $count;
     }
 }

@@ -4,38 +4,56 @@ namespace App\Advent\Days;
 
 use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
-use App\Advent\Utility\Logger;
 
 class Day2
 {
     private DataService $dataService;
-    private Logger $logger;
 
     #[Pure] public function __construct()
     {
         $this->dataService = new DataService();
-        $this->logger = new Logger();
     }
-
     public function runA()
     {
-        $this->logger->log("=== DAY 2 A ===");
-        $handle = $this->dataService->read("day2_test.txt");
+        $handle = $this->dataService->read("day2.txt");
 
+        $horizontal = 0;
+        $depth = 0;
 
+        foreach ($handle as $instruction) {
+            $splitInstruction = explode(' ', $instruction);
+            if ($splitInstruction[0] === 'forward') {
+                $horizontal = $horizontal + (int) $splitInstruction[1];
+            } else if ($splitInstruction[0] === 'up') {
+                $depth = $depth - (int) $splitInstruction[1];
+            } else if ($splitInstruction[0] === 'down') {
+                $depth = $depth + (int) $splitInstruction[1];
+            }
+        }
 
-//        $this->logger->log($count);
-        $this->logger->log('');
+        return $horizontal * $depth;
     }
 
     public function runB()
     {
-        $this->logger->log("=== DAY 2 B ===");
-        $handle = $this->dataService->read("day2_test.txt");
+        $handle = $this->dataService->read("day2.txt");
 
+        $horizontal = 0;
+        $depth = 0;
+        $aim = 0;
 
+        foreach ($handle as $instruction) {
+            $splitInstruction = explode(' ', $instruction);
+            if ($splitInstruction[0] === 'forward') {
+                $horizontal = $horizontal + (int) $splitInstruction[1];
+                $depth = $depth + (int) $splitInstruction[1] * $aim;
+            } else if ($splitInstruction[0] === 'up') {
+                $aim = $aim - (int) $splitInstruction[1];
+            } else if ($splitInstruction[0] === 'down') {
+                $aim = $aim + (int) $splitInstruction[1];
+            }
+        }
 
-//        $this->logger->log($count);
-        $this->logger->log('');
+        return $horizontal * $depth;
     }
 }
