@@ -6,9 +6,6 @@ require_once __DIR__ . '/config.php';
 use App\Advent\Utility\DataService;
 use App\Advent\Utility\Logger;
 use App\Advent\Utility\Timer;
-use App\Advent\Days\Day1;
-use App\Advent\Days\Day2;
-
 
 $logger = new Logger();
 $dataService = new DataService();
@@ -21,8 +18,9 @@ foreach ($handle as $line) {
 }
 
 $days = [
-    new Day1(),
-    new Day2()
+    new App\Advent\Days\Day1(),
+    new App\Advent\Days\Day2(),
+    new App\Advent\Days\Day3()
 ];
 
 foreach ($days as $day) {
