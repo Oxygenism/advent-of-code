@@ -23,11 +23,11 @@ class Day2
         foreach ($handle as $instruction) {
             $splitInstruction = explode(' ', $instruction);
             if ($splitInstruction[0] === 'forward') {
-                $horizontal = $horizontal + (int) $splitInstruction[1];
+                $horizontal +=  (int) $splitInstruction[1];
             } else if ($splitInstruction[0] === 'up') {
-                $depth = $depth - (int) $splitInstruction[1];
+                $depth -= (int) $splitInstruction[1];
             } else if ($splitInstruction[0] === 'down') {
-                $depth = $depth + (int) $splitInstruction[1];
+                $depth += (int) $splitInstruction[1];
             }
         }
 
@@ -46,11 +46,11 @@ class Day2
             $splitInstruction = explode(' ', $instruction);
             if ($splitInstruction[0] === 'forward') {
                 $horizontal = $horizontal + (int) $splitInstruction[1];
-                $depth = $depth + (int) $splitInstruction[1] * $aim;
+                $depth += (int) $splitInstruction[1] * $aim;
             } else if ($splitInstruction[0] === 'up') {
-                $aim = $aim - (int) $splitInstruction[1];
+                $aim -= (int) $splitInstruction[1];
             } else if ($splitInstruction[0] === 'down') {
-                $aim = $aim + (int) $splitInstruction[1];
+                $aim  += (int) $splitInstruction[1];
             }
         }
 

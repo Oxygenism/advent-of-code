@@ -22,17 +22,17 @@ class Timer {
     }
 
 
-    public function start(): void {
+    private function start(): void {
         [$this->microsecondsStart, $this->timeStart] = explode(' ', microtime());
         $timeStop         = null;
         $microsecondsStop = null;
     }
 
-    public function stop(): void {
+    private function stop(): void {
         [$this->microsecondsStop, $this->timeStop] = explode(' ', microtime());
     }
 
-    public function getTime(): float {
+    private function getTime(): float {
         $timeEnd         = $this->timeStop;
         $microsecondsEnd = $this->microsecondsStop;
         if (!$timeEnd) {
@@ -47,7 +47,7 @@ class Timer {
         return round(($seconds + $microseconds), 6);
     }
 
-    public function reset() {
+    private function reset() {
         $this->timeStart = null;
         $this->microsecondsStart = null;
         $this->timeStop = null;
@@ -55,7 +55,7 @@ class Timer {
     }
 
     public function run($class, $method) {
-        $this->logger->log("=== " . $this->get_class_name($class) . ' - ' . $method . " ===");
+        $this->logger->log("=== " . $this->getClassName($class) . ' - ' . $method . " ===");
         $this->start();
 
         $dayResult = call_user_func(array($class, $method));
@@ -67,7 +67,7 @@ class Timer {
         $this->logger->log('');
     }
 
-    function get_class_name($class)
+    private function getClassName($class)
     {
         $reflect = new ReflectionClass($class);
         return $reflect->getShortName();
