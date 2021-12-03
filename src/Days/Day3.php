@@ -16,17 +16,96 @@ class Day3
 
     public function runA()
     {
-        $handle = $this->dataService->read("day0_test.txt");
+        $handle = $this->dataService->read("day3.txt");
+        $bitLength = strlen(trim($handle->current()));
+        echo $bitLength;
+        $gamma = $epsilon = "";
+        $count0 = array_fill(0, $bitLength, 0);
+        $count1 = $count0;
+        foreach ($handle as $bits) {
+            $splitBits = str_split(trim($bits));
+            foreach ($splitBits as $key=>$bit) {
+                if ($bit == 1) {
+                    $count0[$key] += 1;
+                } else {
+                    $count1[$key] += 1;
+                }
+            }
+        }
 
-//        return $count;
+        for ($i = 0; $i < count($count1); $i++) {
+            if ($count0[$i] < $count1[$i]) {
+                $gamma .= "1";
+                $epsilon .= "0";
+            } else {
+                $epsilon .= "1";
+                $gamma .= "0";
+            }
+        }
+
+        return bindec($gamma) * bindec($epsilon);
     }
 
     public function runB()
     {
-        $handle = $this->dataService->read("day0_test.txt");
+        $handle = $this->dataService->read("day3.txt");
+        $bitLength = strlen(trim($handle->current()));
+        echo $bitLength;
 
+        $oxyGen = $this->getBitsFor(0, $handle);
+        $co2Scrub = $this->getBitsFor(0, $handle, true);
 
+        $oxyGenStr = "";
+        $co2ScrubStr = "";
 
-//        return $count;
+        print_r($oxyGen);
+        print_r($co2Scrub);
+
+        for ($i = 0; $i < $bitLength; $i++) {
+            $oxyGenStr .= $oxyGen[0][$i];
+            $co2ScrubStr .= $co2Scrub[0][$i];
+        }
+
+        return bindec($oxyGenStr) * bindec($co2ScrubStr);
+    }
+
+    function getCommonAt($pos, $bits) {
+        $arrayLength = count($bits);
+        $count = 0;
+        foreach ($bits as $bit) {
+            if ($bit[$pos] == 1) {
+                $count++;
+            }
+        }
+
+        if ($count == ($arrayLength/2)) {
+            return -1;
+        }
+
+        return ($count > ($arrayLength/2)) ? 0 : 1;
+    }
+
+    function getBitsFor($pos, $bits, $opposite = false)
+    {
+        $common = $this->getCommonAt($pos, $bits);
+
+        if ($opposite && $common != -1) {
+            $common = ($common == 1) ? 0 : 1;
+        } else if ($common == -1) {
+            $common = ($opposite) ? 1 : 0;
+        }
+
+        $result = [];
+        foreach ($bits as $bit) {
+            if ($bit[$pos] == $common || $common == -1) {
+                $result[] = $bit;
+            }
+        }
+
+        if (count($result) !== 1) {
+            $result = $this->getBitsFor($pos + 1, $result, $opposite);
+        }
+
+        return $result;
     }
 }
