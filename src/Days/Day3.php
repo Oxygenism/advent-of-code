@@ -18,8 +18,9 @@ class Day3
     {
         $handle = $this->dataService->read("day3.txt");
         $bitLength = strlen(trim($handle->current()));
-        echo $bitLength;
+
         $gamma = $epsilon = "";
+
         $count0 = array_fill(0, $bitLength, 0);
         $count1 = $count0;
         foreach ($handle as $bits) {
@@ -49,24 +50,11 @@ class Day3
     public function runB()
     {
         $handle = $this->dataService->read("day3.txt");
-        $bitLength = strlen(trim($handle->current()));
-        echo $bitLength;
 
         $oxyGen = $this->getBitsFor(0, $handle);
         $co2Scrub = $this->getBitsFor(0, $handle, true);
 
-        $oxyGenStr = "";
-        $co2ScrubStr = "";
-
-        print_r($oxyGen);
-        print_r($co2Scrub);
-
-        for ($i = 0; $i < $bitLength; $i++) {
-            $oxyGenStr .= $oxyGen[0][$i];
-            $co2ScrubStr .= $co2Scrub[0][$i];
-        }
-
-        return bindec($oxyGenStr) * bindec($co2ScrubStr);
+        return bindec($oxyGen[0]) * bindec($co2Scrub[0]);
     }
 
     function getCommonAt($pos, $bits) {
@@ -89,9 +77,11 @@ class Day3
     {
         $common = $this->getCommonAt($pos, $bits);
 
-        if ($opposite && $common != -1) {
+        if ($opposite) {
             $common = ($common == 1) ? 0 : 1;
-        } else if ($common == -1) {
+        }
+
+        if ($common == -1) {
             $common = ($opposite) ? 1 : 0;
         }
 
