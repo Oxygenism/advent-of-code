@@ -53,33 +53,33 @@
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
 === Day1 - RunA ===
 Result: 1292
-Executed in: 0.000619
+Executed in: 0.000857
 
 === Day1 - RunB ===
 Result: 1262
-Executed in: 0.00431
+Executed in: 0.005591
 
 === Day2 - RunA ===
 Result: 1728414
-Executed in: 0.000935
+Executed in: 0.000994
 
 === Day2 - RunB ===
 Result: 1765720035
-Executed in: 0.000863
+Executed in: 0.000983
 
 === Day3 - RunA ===
 Result: 2743844
-Executed in: 0.002698
+Executed in: 0.003439
 
 === Day3 - RunB ===
 Result: 6677951
-Executed in: 0.00119
+Executed in: 0.001645
 
 === Day4 - RunA ===
 Result: 11774
-Executed in: 0.02797
+Executed in: 0.043102
 
 === Day4 - RunB ===
 Result: 4495
-Executed in: 0.063262
+Executed in: 0.088061
 

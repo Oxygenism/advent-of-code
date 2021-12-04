@@ -26,6 +26,6 @@ $days = [
 
 foreach ($days as $day) {
     $timer->run($day, 'RunA');
-    $timer->run($day, 'RunB');
+    $timer->run($day,  'RunB');
 }
 

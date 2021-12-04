@@ -5,7 +5,7 @@ namespace App\Advent\Days;
 use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
-class Day0
+class Day5
 {
     private DataService $dataService;
 
@@ -16,7 +16,7 @@ class Day0
 
     public function runA()
     {
-        $handle = $this->dataService->read("day0_test.txt");
+        $handle = $this->dataService->read("day5_test.txt");
 
 
 //        return $count;
@@ -24,7 +24,7 @@ class Day0
 
     public function runB()
     {
-        $handle = $this->dataService->read("day0_test.txt");
+        $handle = $this->dataService->read("day5_test.txt");
 
 
 
@@ -39,7 +39,6 @@ class Day0
 
 
         $trimmed = ltrim($input); //left trim
-        $trimmed = rtrim($trimmed); //right trim
-        return preg_replace('!\s+!', ',', $trimmed);
+        return rtrim($trimmed); //right trim
     }
 }
