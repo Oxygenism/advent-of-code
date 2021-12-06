@@ -9,50 +9,56 @@ class Day6
 {
     private DataService $dataService;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->dataService = new DataService();
     }
 
     public function runA()
     {
-        $handle = $this->dataService->read("day6_test.txt");
+        $handle = $this->dataService->read("day6.txt");
         $fishString = $handle->current();
         $fishString = $this->sanitizeInput($fishString);
         $fishArray = explode(',', $fishString);
         $fishArray = DataService::getIntegerArray($fishArray);
 
-        $newFishCount = 0;
-        for ($i = 0; $i < 18; $i++) {
-            foreach ($fishArray as $key=>$lanternFish) {
-                if ($lanternFish === 0) {
-                    $fishArray[] = 8;
-                    $key=>
-                } else {}
-            }
-//            foreach ($lanternFishTracker as $lanternFish) {
-//                $newFish = $lanternFish->countDown();
-//                if ($newFish === true) {
-//                    $newFishCount++;
-//                }
-//            }
-//
-//            for ($i = 0; $i < $newFishCount; $i++) {
-//                $lanternFishTracker[] = new LanternFish(9);
-//            }
-//            $newFishCount = 0;
-        }
-        print_r($lanternFishTracker);
-        return count($lanternFishTracker);
+        return $this->fishDuplication($fishArray, 80);
     }
 
     public function runB()
     {
-        $handle = $this->dataService->read("day6_test.txt");
+        $handle = $this->dataService->read("day6.txt");
+        $fishString = $handle->current();
+        $fishString = $this->sanitizeInput($fishString);
+        $fishArray = explode(',', $fishString);
+        $fishArray = DataService::getIntegerArray($fishArray);
 
+        return $this->fishDuplication($fishArray, 256);
+    }
 
+    public function fishDuplication($array, $days) {
+        $template = array_fill(0, 9, 0);
+        $fishAtAge = $template;
+        foreach ($array as $fish) {
+            $fishAtAge[$fish] += 1;
+        }
 
-//        return $count;
+        $newFishAge = $template;
+        for ($i = 0; $i < $days; $i++) {
+            foreach ($fishAtAge as $age=>$fish) {
+                if ($age == 0) {
+                    $newFishAge[8] += $fish;
+                    $newFishAge[6] += $fish;
+                } else {
+                    $newFishAge[$age - 1] += $fish;
+                }
+            }
+
+            $fishAtAge = $newFishAge;
+            $newFishAge = $template;
+        }
+
+        return array_sum($fishAtAge);
     }
 
     public function sanitizeInput($input) {
@@ -65,27 +71,4 @@ class Day6
         $trimmed = ltrim($input); //left trim
         return rtrim($trimmed); //right trim
     }
-}
-
-class LanternFish {
-    public $internalTimer = 0;
-
-    /**
-     * @param int $internalTimer
-     */
-    public function __construct(int $internalTimer)
-    {
-        $this->internalTimer = $internalTimer;
-    }
-
-    public function countDown() {
-        $this->internalTimer -= 1;
-        if ($this->internalTimer === 0) {
-            $this->internalTimer = 7;
-            return true;
-        }
-
-        return false;
-    }
-
 }

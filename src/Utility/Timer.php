@@ -16,7 +16,7 @@ class Timer {
     private $microsecondsStop;
     private $logger;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->logger = new Logger();
     }
