@@ -15,4 +15,14 @@ class DataService
 
         return $obj->getIterator();
     }
+
+    public static function getArray(ArrayObject $handle)
+    {
+        return $handle->getArrayCopy();
+    }
+
+    public static function getIntegerArray(array $array)
+    {
+        return array_map('intval', $array);
+    }
 }

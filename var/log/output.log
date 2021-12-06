@@ -51,43 +51,11 @@
              ██          ░░░░██▓▓▓▓██░░      ████░░░░████      ░░██▓▓▓▓██░░░░          ██
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
-=== Day1 - RunA ===
-Result: 1292
-Executed in: 0.000628
+=== Day6 - RunA ===
+Result: 195
+Executed in: 0.011044
 
-=== Day1 - RunB ===
-Result: 1262
-Executed in: 0.004294
-
-=== Day2 - RunA ===
-Result: 1728414
-Executed in: 0.000876
-
-=== Day2 - RunB ===
-Result: 1765720035
-Executed in: 0.000868
-
-=== Day3 - RunA ===
-Result: 2743844
-Executed in: 0.002783
-
-=== Day3 - RunB ===
-Result: 6677951
-Executed in: 0.001348
-
-=== Day4 - RunA ===
-Result: 11774
-Executed in: 0.028925
-
-=== Day4 - RunB ===
-Result: 4495
-Executed in: 0.06453
-
-=== Day5 - RunA ===
-Result: 7438
-Executed in: 0.042781
-
-=== Day5 - RunB ===
-Result: 21406
-Executed in: 0.811677
+=== Day6 - RunB ===
+Result: 
+Executed in: 0.000135
 
