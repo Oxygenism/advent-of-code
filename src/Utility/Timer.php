@@ -62,7 +62,7 @@ class Timer {
         $this->logger->log('Result: ' . $dayResult);
 
         $this->stop();
-        $this->logger->log('Executed in: ' . $this->getTime());
+        $this->logger->log('Executed in: ' . $this->getTime() . 's');
         $this->reset();
         $this->logger->log('');
     }

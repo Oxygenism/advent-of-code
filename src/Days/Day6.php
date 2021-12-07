@@ -27,7 +27,7 @@ class Day6
 
     public function runB()
     {
-        $handle = $this->dataService->read("day6.txt");
+        $handle = $this->dataService->read("day6_test.txt");
         $fishString = $handle->current();
         $fishString = $this->sanitizeInput($fishString);
         $fishArray = explode(',', $fishString);
