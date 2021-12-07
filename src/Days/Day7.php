@@ -21,13 +21,15 @@ class Day7
         $sanitizedString = $this->sanitizeInput($inputString);
         $inputArray = explode(',', $sanitizedString);
         $positions = DataService::getIntegerArray($inputArray);
+        $positionOccurance = array_count_values($positions);
 
+        print_r($positionOccurance);
         $func = function(&$item, $key, $mostFreqPosition) {
-            $diff = abs($item - $mostFreqPosition);
-            $item = $diff;
+            $diff = abs($key - $mostFreqPosition);
+            $item = $key * $diff;
         };
 
-        return $this->getLeastFuelConsumption($positions, $func);
+        return $this->getLeastFuelConsumption($positionOccurance, $func);
     }
 
     public function runB()
@@ -44,7 +46,7 @@ class Day7
             $item = array_sum(range(0, $diff));
         };
 
-        array_walk($positions, $func, $avg);
+        array_walk($positions, $func, $avg); //run func voor elk item in array
         return array_sum($positions);
     }
 

@@ -9,7 +9,7 @@ class Day4
 {
     private DataService $dataService;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->dataService = new DataService();
     }
