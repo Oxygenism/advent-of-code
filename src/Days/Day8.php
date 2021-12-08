@@ -64,11 +64,8 @@ class Day8
     public function runB()
     {
         $handle = $this->dataService->read("day8.txt");
-        $count = array_fill(0, 8, 0);
-
         $sum = 0;
         while ($handle->valid()) {
-            $possible = array_fill(0, 8, []);
             $solved = array_fill(0, 9, null);
             $trimmed = $this->sanitizeInput($handle->current());
             $pair = explode(" | ", $trimmed);
@@ -147,7 +144,6 @@ class Day8
                 }
             }
 
-            echo $combinedNumber . PHP_EOL;
             $sum += (int) $combinedNumber;
             $handle->next();
         }

@@ -18,13 +18,13 @@ foreach ($handle as $line) {
 }
 
 $days = [
-//    new App\Advent\Days\Day1(),
-//    new App\Advent\Days\Day2(),
-//    new App\Advent\Days\Day3(),
-//    new App\Advent\Days\Day4(),
-//    new App\Advent\Days\Day5(),
-//    new App\Advent\Days\Day6(),
-//    new App\Advent\Days\Day7(),
+    new App\Advent\Days\Day1(),
+    new App\Advent\Days\Day2(),
+    new App\Advent\Days\Day3(),
+    new App\Advent\Days\Day4(),
+    new App\Advent\Days\Day5(),
+    new App\Advent\Days\Day6(),
+    new App\Advent\Days\Day7(),
     new App\Advent\Days\Day8(),
 ];
 
