@@ -8,33 +8,6 @@ use App\Advent\Utility\DataService;
 class Day8
 {
     private DataService $dataService;
-    private const NUMBER_LENGTH = [
-      0 => 6,
-      1 => 2,
-      2 => 5,
-      3 => 5,
-      4 => 4,
-      5 => 5,
-      6 => 6,
-      7 => 3,
-      8 => 7,
-      9 => 6
-    ];
-
-    private const NUMBER_CREATION = [
-        0 => [1,1,1,1,1,1,0],
-        1 => [0,1,1,0,0,0,0],
-        2 => [1,1,0,1,1,0,1],
-        3 => [1,1,1,1,0,0,1],
-        4 => [0,1,1,0,0,1,1],
-        5 => [1,0,1,1,0,1,1],
-        6 => [1,0,1,1,1,1,1],
-        7 => [1,1,1,0,0,0,0],
-        8 => [1,1,1,1,1,1,1],
-        9 => [1,1,1,1,0,1,1],
-    ];
-
-    private const ALL_CHAR = 'abcdefg';
 
     public function __construct()
     {
@@ -147,7 +120,6 @@ class Day8
             $sum += (int) $combinedNumber;
             $handle->next();
         }
-
 
         return $sum;
     }
