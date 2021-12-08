@@ -51,59 +51,11 @@
              ██          ░░░░██▓▓▓▓██░░      ████░░░░████      ░░██▓▓▓▓██░░░░          ██
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
-=== Day1 - RunA ===
-Result: 1291
-Executed in: 6.888ms
+=== Day8 - RunA ===
+Result: 352
+Executed in: 1.558ms
 
-=== Day1 - RunB ===
-Result: 1262
-Executed in: 12.509ms
-
-=== Day2 - RunA ===
-Result: 1728414
-Executed in: 2.435ms
-
-=== Day2 - RunB ===
-Result: 1765720035
-Executed in: 1.312ms
-
-=== Day3 - RunA ===
-Result: 2743844
-Executed in: 8.044ms
-
-=== Day3 - RunB ===
-Result: 6677951
-Executed in: 2.213ms
-
-=== Day4 - RunA ===
-Result: 11774
-Executed in: 123.604ms
-
-=== Day4 - RunB ===
-Result: 4495
-Executed in: 200.083ms
-
-=== Day5 - RunA ===
-Result: 7438
-Executed in: 71.993ms
-
-=== Day5 - RunB ===
-Result: 21406
-Executed in: 3222.18ms
-
-=== Day6 - RunA ===
-Result: 362346
-Executed in: 1.035ms
-
-=== Day6 - RunB ===
-Result: 26984457539
-Executed in: 0.886ms
-
-=== Day7 - RunA ===
-Result: 332238350
-Executed in: 20.365ms
-
-=== Day7 - RunB ===
-Result: 91638945
-Executed in: 8.338ms
+=== Day8 - RunB ===
+Result: 936117
+Executed in: 38.811ms
 
