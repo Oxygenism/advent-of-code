@@ -51,11 +51,11 @@
              ██          ░░░░██▓▓▓▓██░░      ████░░░░████      ░░██▓▓▓▓██░░░░          ██
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
-=== Day9 - RunA ===
-Result: 554
-Executed in: 14.443ms
+=== Day10 - RunA ===
+Result: 240123
+Executed in: 11.185ms
 
-=== Day9 - RunB ===
-Result: 1017792
-Executed in: 10723.587ms
+=== Day10 - RunB ===
+Result: 3260812321
+Executed in: 11.97ms
 

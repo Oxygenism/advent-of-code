@@ -26,11 +26,11 @@ $days = [
 //    new App\Advent\Days\Day6(),
 //    new App\Advent\Days\Day7(),
 //    new App\Advent\Days\Day8(),
-    new App\Advent\Days\Day9(),
+//    new App\Advent\Days\Day9(),
+    new App\Advent\Days\Day10(),
 ];
 
 foreach ($days as $day) {
     $timer->run($day, 'RunA');
     $timer->run($day,  'RunB');
 }
-
