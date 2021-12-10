@@ -95,19 +95,6 @@ class Day10
             $handle->next();
         }
 
-        $func = function(&$item, $key, $value) {
-            $value = $value * 5;
-            if ($item == ")") {
-                $item = $value + 1;
-            } elseif($item == "]") {
-                $item = $value + 2;
-            } elseif ($item == "}") {
-                $item = $value + 3;
-            } else {
-                $item = $value + 4;
-            }
-        };
-
         $scores = [];
         foreach ($validLines as $key=>$validLine) {
             $fixed = [];
