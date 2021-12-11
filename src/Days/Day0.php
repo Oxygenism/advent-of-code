@@ -9,7 +9,7 @@ class Day0
 {
     private DataService $dataService;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->dataService = new DataService();
     }
@@ -39,7 +39,6 @@ class Day0
 
 
         $trimmed = ltrim($input); //left trim
-        $trimmed = rtrim($trimmed); //right trim
-        return preg_replace('!\s+!', ',', $trimmed);
+        return rtrim($trimmed); //right trim
     }
 }
