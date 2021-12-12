@@ -11,6 +11,7 @@ class Day12
     public $nodes;
     public $start;
     public $end;
+    public $possibleRoutes = [];
 
     public function __construct()
     {
@@ -20,157 +21,118 @@ class Day12
     public function runA()
     {
         $handle = $this->dataService->read("day12.txt");
-        $start = $end = null;
-
-        $small = $big = [];
         foreach ($handle as $cave) {
             $cave = trim($cave);
             $split = explode('-', $cave);
-            $node1 = $this->addNode($split[0]);
-            $node2 = $this->addNode($split[1]);
-            $this->setConnection($node1, $node2);
+            $node1Key = $this->addNode($split[0]);
+            $node2Key = $this->addNode($split[1]);
+            $this->setConnection($node1Key, $node2Key);
         }
 
-        foreach ($this->nodes as $node) {
-            if ($node->isStartNode()) {
-                $start = $node;
-            }else if ($node->isEndNode()) {
-                $end = $node;
-            }else if ($node->isSmallNode()) {
-                $small[] = $node;
-            }else if ($node->isBigNode()) {
-                $big[] = $node;
-            }
-        }
+        $this->start = $this->findNode('start');
+        $this->end = $this->findNode('end');
 
-        $this->start = $start; // needed for run B
-        $this->end = $end; // needed for run B
+        $this->findRoutes();
 
-        $start->findRoutesTo($end);
-        $this->start = $start;
-
-        return count($start->possibleRoutes);
+        return count($this->possibleRoutes);
     }
 
     public function runB()
     {
-        $this->start->possibleRoutes = [];
-        $this->start->findRoutesTo($this->end, true);
-        return count($this->start->possibleRoutes);
+        $this->possibleRoutes = [];
+        $this->findRoutes(true);
+        return count($this->possibleRoutes);
     }
 
     public function addNode($cave) {
-        $node = $this->findNode($cave);
-        if (!$node) {
-            $node = new Node();
-            $node->name = $cave;
-            if (ctype_upper($node->name)) {
-                $node->nodeType = 1; //big
+        if ($this->findNode($cave) === false) {
+            $node = ["name" => $cave, "nodeType" => null, "neighbours" => []];
+            $node['name'] = $cave;
+            if (ctype_upper($node['name'])) {
+                $node['nodeType'] = 1; //big
             } else {
-                $node->nodeType = -1; //small
+                $node['nodeType'] = -1; //small
             }
 
             $this->nodes[] = $node;
         }
 
-        return $node;
+        return $this->findNode($cave);
     }
 
     public function findNode($name) {
         if (!is_array($this->nodes)) {
             return false;
         }
-        foreach ($this->nodes as $node) {
-            if ($name === $node->name) {
-                return $node;
+        foreach ($this->nodes as $key=>$node) {
+            if ($name === $node['name']) {
+                return $key;
             }
         }
 
         return false;
     }
 
-    public function setConnection($node1, $node2) {
-        $node1->neighours[] = $node2;
-        $node2->neighours[] = $node1;
-    }
-}
-
-class Node {
-    public $name;
-    public $neighours = [];
-    public $nodeType;
-    public $possibleRoutes = [];
-
-
-    public function isStartNode() {
-        return $this->name === "start";
+    public function setConnection($node1Key, $node2Key) {
+        $this->nodes[$node1Key]['neighbours'][] = $node2Key;
+        $this->nodes[$node2Key]['neighbours'][] = $node1Key;
     }
 
-    public function isEndNode() {
-        return $this->name === "end";
-    }
-
-    public function isSmallNode() {
-        return $this->nodeType === -1;
-    }
-
-    public function isBigNode() {
-        return $this->nodeType === 1;
-    }
-
-    public function findRoutesTo($end, $state = false) {
+    public function findRoutes($state = false) {
         $visited = [];
         $path = [];
 
-        $this->findNodesUntil($this, $end, $visited, $path, $state);
+        $this->findNodesUntil($this->start, $visited, $path, $state);
     }
 
-    public function findNodesUntil($start, $end, $visited, $path, $state, $rateLimited = false) {
-        $path[] = $this;
+    public function findNodesUntil($current, $visited, $path, $state, $rateLimited = false) {
+        $currentNodeName = $this->nodes[$current]['name'];
+        $path[] = $currentNodeName;
 
-        if ($this === $end) {
-            $start->setRoutes($path);
+        if ($this->nodes[$current] === $this->nodes[$this->end]) {
+            $this->setRoutes($path);
             return;
         }
 
         if ($state) {
-            if ($this === $start && in_array($start, $visited)) {
+            if ($this->nodes[$current] === $this->nodes[$this->start] && in_array($currentNodeName, $visited)) {
                 return;
             }
         }
 
-        if ($this->isSmallNode()) {
+        if ($this->nodes[$current]['nodeType'] === -1) {
             if ($state) {
-                if ($rateLimited === true && in_array($this->name, $visited)) {
+                if ($rateLimited === true && in_array($currentNodeName, $visited)) {
                     return;
                 }
-                $visited[] = $this->name;
+                $visited[] = $currentNodeName;
                 $values = array_count_values($visited);
 
-                if ($values[$this->name] == 2) {
+                if ($values[$currentNodeName] == 2) {
                     $rateLimited = true;
                 }
             } else {
-                $visited[] = $this->name;
+                $visited[] = $currentNodeName;
             }
         }
 
 
-        foreach ($this->neighours as $neighour) {
-            if ($neighour->isStartNode()) {
+        foreach ($this->nodes[$current]['neighbours'] as $neighbour) {
+            $neighbourNode = $this->nodes[$neighbour];
+            if ($neighbour === $this->start) {
                 continue;
             }
             if ($state) {
-                if ($neighour->isBigNode()){
-                    $neighour->findNodesUntil($start, $end, $visited, $path, $state, $rateLimited);
+                if ($neighbourNode['nodeType'] === 1){
+                    $this->findNodesUntil($neighbour, $visited, $path, $state, $rateLimited);
                 }else if($rateLimited === false){
-                    $neighour->findNodesUntil($start, $end, $visited, $path, $state, $rateLimited);
-                } else if (!in_array($neighour->name, $visited)) {
-                    $neighour->findNodesUntil($start, $end, $visited, $path, $state, $rateLimited);
+                    $this->findNodesUntil($neighbour, $visited, $path, $state, $rateLimited);
+                } else if (!in_array($neighbourNode['name'], $visited)) {
+                    $this->findNodesUntil($neighbour, $visited, $path, $state, $rateLimited);
                 }
             }else {
-                if (!in_array($neighour->name, $visited)) {
-                    $neighour->findNodesUntil($start, $end, $visited, $path, $state);
+                if (!in_array($neighbourNode['name'], $visited)) {
+                    $this->findNodesUntil($neighbour, $visited, $path, $state);
                 }
             }
         }
@@ -179,15 +141,6 @@ class Node {
     public function setRoutes($path) {
         if (!in_array($path, $this->possibleRoutes)) {
             $this->possibleRoutes[] = $path;
-//            foreach ($path as $cave) {
-//                echo $cave->__toString();
-//            }
-//            echo PHP_EOL;
         }
-    }
-
-    public function __toString()
-    {
-        return "| $this->name ";
     }
 }
