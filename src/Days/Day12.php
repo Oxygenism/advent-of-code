@@ -8,7 +8,7 @@ use App\Advent\Utility\DataService;
 class Day12
 {
     private DataService $dataService;
-    public $nodes;
+    public $nodes = [];
     public $start;
     public $end;
     public $possibleRoutes = 0;
@@ -20,7 +20,7 @@ class Day12
 
     public function runA()
     {
-        $handle = $this->dataService->read("day12.txt");
+        $handle = $this->dataService->read('day12.txt');
         foreach ($handle as $cave) {
             $cave = trim($cave);
             $split = explode('-', $cave);
@@ -32,22 +32,21 @@ class Day12
         $this->start = $this->findNode('start');
         $this->end = $this->findNode('end');
 
-        $this->findRoutes();
-
+        $this->findRoutes($this->start, [], false);
         return $this->possibleRoutes;
     }
 
     public function runB()
     {
         $this->possibleRoutes = 0;
-        $this->findRoutes(true);
+        $this->findRoutes($this->start, [], true);
         return $this->possibleRoutes;
     }
 
     public function addNode($cave) {
         if ($this->findNode($cave) === false) {
-            $node = ["name" => $cave, "nodeType" => null, "neighbours" => []];
-            $node['name'] = $cave;
+            $node = ['name' => $cave, 'nodeType' => null, 'neighbours' => []];
+
             if (ctype_upper($node['name'])) {
                 $node['nodeType'] = 1; //big
             } else {
@@ -61,9 +60,6 @@ class Day12
     }
 
     public function findNode($name) {
-        if (!is_array($this->nodes)) {
-            return false;
-        }
         foreach ($this->nodes as $key=>$node) {
             if ($name === $node['name']) {
                 return $key;
@@ -78,13 +74,7 @@ class Day12
         $this->nodes[$node2Key]['neighbours'][] = $node1Key;
     }
 
-    public function findRoutes($state = false) {
-        $visited = [];
-
-        $this->findNodesUntil($this->start, $visited, $state);
-    }
-
-    public function findNodesUntil($current, $visited, $state, $rateLimited = false) {
+    public function findRoutes($current, $visited, $state, $duplicate = false) {
         $currentNodeName = $this->nodes[$current]['name'];
 
         if ($this->nodes[$current] === $this->nodes[$this->end]) {
@@ -92,22 +82,16 @@ class Day12
             return;
         }
 
-        if ($state) {
-            if ($this->nodes[$current] === $this->nodes[$this->start] && in_array($currentNodeName, $visited)) {
-                return;
-            }
-        }
-
         if ($this->nodes[$current]['nodeType'] === -1) {
             if ($state) {
-                if ($rateLimited === true && in_array($currentNodeName, $visited)) {
+                if ($duplicate === true && in_array($currentNodeName, $visited)) {
                     return;
                 }
                 $visited[] = $currentNodeName;
                 $values = array_count_values($visited);
 
-                if ($values[$currentNodeName] == 2) {
-                    $rateLimited = true;
+                if ($values[$currentNodeName] === 2) {
+                    $duplicate = true;
                 }
             } else {
                 $visited[] = $currentNodeName;
@@ -122,15 +106,15 @@ class Day12
             }
             if ($state) {
                 if ($neighbourNode['nodeType'] === 1){
-                    $this->findNodesUntil($neighbour, $visited, $state, $rateLimited);
-                }else if($rateLimited === false){
-                    $this->findNodesUntil($neighbour, $visited, $state, $rateLimited);
+                    $this->findRoutes($neighbour, $visited, $state, $duplicate);
+                }else if($duplicate === false){
+                    $this->findRoutes($neighbour, $visited, $state, $duplicate);
                 } else if (!in_array($neighbourNode['name'], $visited)) {
-                    $this->findNodesUntil($neighbour, $visited, $state, $rateLimited);
+                    $this->findRoutes($neighbour, $visited, $state, $duplicate);
                 }
             }else {
                 if (!in_array($neighbourNode['name'], $visited)) {
-                    $this->findNodesUntil($neighbour, $visited, $state);
+                    $this->findRoutes($neighbour, $visited, $state);
                 }
             }
         }
