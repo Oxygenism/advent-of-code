@@ -11,5 +11,7 @@
             "email": "git@horchner.dev"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-ctype": "*"
+    }
 }

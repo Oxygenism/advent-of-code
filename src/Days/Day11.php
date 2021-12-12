@@ -36,7 +36,7 @@ class Day11
 
     public function runA()
     {
-        $handle = $this->dataService->read("day11.txt");
+        $handle = $this->dataService->read("day11_test.txt");
         $this->octopiLength = $handle->count();
         $this->octopiWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         foreach ($handle as $lineOfOctopi) {
@@ -59,7 +59,7 @@ class Day11
 
         $totalOctopi = count($this->octopuses);
         $this->echoOutEnergies();
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $increaseEnergy = function(&$item) {
                 $item["energy"] += 1;
             };
@@ -137,6 +137,7 @@ class Day11
             };
 
             if ($this->timesFlashed === $totalOctopi) {
+                $this->echoOutEnergies();
                 return $i;
             }else {
                 $this->timesFlashed = 0;
