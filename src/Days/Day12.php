@@ -2,7 +2,6 @@
 
 namespace App\Advent\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day12
