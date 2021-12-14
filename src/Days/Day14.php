@@ -3,7 +3,6 @@
 namespace App\Advent\Days;
 
 use App\Advent\Utility\DataService;
-use function Sodium\add;
 
 class Day14
 {
@@ -16,47 +15,18 @@ class Day14
 
     public function runA()
     {
-        $handle = $this->dataService->read("day14.txt");
-        $polyTemplate = trim($handle->current());
-        $handle->next();
-        $handle->next();
-
-        $pairInsertions = [];
-        while ($handle->valid()) {
-            $pairInsertion = explode(" -> ", trim($handle->current()));
-            $pairInsertions[$pairInsertion[0]] = $pairInsertion[1];
-            $handle->next();
-        }
-
-        for ($i = 0; $i < 10; $i++) {
-            $additions = 0;
-            $newPolyTemplate = $polyTemplate;
-            for ($pos = 0; $pos < strlen($polyTemplate); $pos++) {
-                $part = substr($polyTemplate, $pos, 2);
-                $newPoly = ($pairInsertions[$part] ?? null);
-                if ($newPoly !== null) {
-                    $charPos = $pos + 1 + $additions;
-                    $newPolyTemplate = substr_replace($newPolyTemplate, $newPoly, $charPos, 0);
-                    $additions++;
-                }
-            }
-            $polyTemplate = $newPolyTemplate;
-        }
-
-        $polyTemplateArray = str_split($polyTemplate);
-        $count = array_count_values($polyTemplateArray);
-        sort($count);
-        $highest = end($count);
-        $lowest = $count[0];
-
-//        print_r($pairInsertions);
-        return $highest - $lowest;
+        return $this->run('day14_test.txt', 10);
     }
 
     public function runB()
     {
-        $handle = $this->dataService->read("day14.txt");
+        return $this->run('day14.txt', 40);
+    }
+
+    public function run($file, $times) {
+        $handle = $this->dataService->read($file);
         $polyTemplate = trim($handle->current());
+        $polyTemplateLength = strlen($polyTemplate);
         $handle->next();
         $handle->next();
 
@@ -67,28 +37,65 @@ class Day14
             $handle->next();
         }
 
-        for ($i = 0; $i < 40; $i++) {
-            $additions = 0;
-            $newPolyTemplate = $polyTemplate;
-            for ($pos = 0; $pos < strlen($polyTemplate); $pos++) {
-                $part = substr($polyTemplate, $pos, 2);
-                $newPoly = ($pairInsertions[$part] ?? null);
-                if ($newPoly !== null) {
-                    $charPos = $pos + 1 + $additions;
-                    $newPolyTemplate = substr_replace($newPolyTemplate, $newPoly, $charPos, 0);
-                    $additions++;
-                }
+        $pairCount = [];
+        for ($pos = 0; $pos < $polyTemplateLength - 1; $pos++) {
+            $part = substr($polyTemplate, $pos, 2);
+            if (isset($pairCount[$part])) {
+                $pairCount[$part] += 1;
+            } else {
+                $pairCount[$part] = 1;
             }
-            $polyTemplate = $newPolyTemplate;
+
         }
 
-        $polyTemplateArray = str_split($polyTemplate);
-        $count = array_count_values($polyTemplateArray);
-        sort($count);
-        $highest = end($count);
-        $lowest = $count[0];
+        for ($i = 0; $i < $times; $i++) {
+            $tempCount = [];
+            while (count($pairCount) !== 0) {
+                $value = end($pairCount);
+                $key = key($pairCount);
+                unset($pairCount[$key]);
 
-//        print_r($pairInsertions);
-        return $highest - $lowest;
+                $newPoly = ($pairInsertions[$key] ?? null);
+                if ($newPoly !== null) {
+                    $splitPair = str_split($key);
+                    $newPair1 = $splitPair[0] . $newPoly;
+                    $newPair2 = $newPoly . $splitPair[1];
+
+                    if (isset($tempCount[$newPair1])) {
+                        $tempCount[$newPair1] += $value;
+                    } else {
+                        $tempCount[$newPair1] = $value;
+                    }
+
+                    if (isset($tempCount[$newPair2])) {
+                        $tempCount[$newPair2] += $value;
+                    } else {
+                        $tempCount[$newPair2] = $value;
+                    }
+                } else {
+                    $tempCount[$key] = $value;
+                }
+            }
+
+            $pairCount = $tempCount;
+        }
+
+        $charCount = [];
+        foreach ($pairCount as $key=>$value) {
+            $chars = str_split($key);
+            foreach ($chars as $char) {
+                if (isset($charCount[$char])) {
+                    $charCount[$char] += $value / 2;
+                } else {
+                    $charCount[$char] = $value / 2;
+                }
+            }
+        }
+
+        sort($charCount);
+        $highest = end($charCount);
+        $lowest = $charCount[0];
+
+        return round($highest - $lowest);
     }
 }
