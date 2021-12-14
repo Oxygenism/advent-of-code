@@ -52,10 +52,10 @@
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
 === Day14 - RunA ===
-Result: 1588
-Executed in: 0.853ms
+Result: 3555
+Executed in: 2.385ms
 
 === Day14 - RunB ===
 Result: 4439442043739
-Executed in: 6.728ms
+Executed in: 7.914ms
 

@@ -15,7 +15,7 @@ class Day14
 
     public function runA()
     {
-        return $this->run('day14_test.txt', 10);
+        return $this->run('day14.txt', 10);
     }
 
     public function runB()
