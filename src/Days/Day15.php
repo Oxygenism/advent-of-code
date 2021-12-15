@@ -3,6 +3,7 @@
 namespace App\Advent\Days;
 
 use App\Advent\Utility\DataService;
+use SplMinHeap;
 
 class Day15
 {
@@ -16,12 +17,12 @@ class Day15
 
     public function runA()
     {
-//        return $this->run('day15.txt');
+        return $this->run('day15_test.txt', true);
     }
 
     public function runB()
     {
-        return $this->run('day15.txt', true);
+//        return $this->run('day15.txt', true);
     }
 
     public function run($file, $state = false) {
@@ -35,7 +36,6 @@ class Day15
             foreach ($riskmapLine as $y=>$value) {
                 $current = new Vertex(++$id, $x, $y, $value);
                 $riskMapLineNodes[] = $current;
-                echo $id . PHP_EOL;
             }
             $nodes[] = $riskMapLineNodes;
         }
@@ -104,18 +104,13 @@ class Day15
     }
 
     public function getShortestPath($nodes, $start, $target) {
-        $path = [];
-        $path[] = $start;
-        $visited = [];
-
-        if ($start == $target){
-            $path[] = $target;
-            return $path;
-        }
+        $visited = array_fill_keys(range(0, count($nodes) - 1), null);
 
         $dspNode = new DspNode($start);
-        $visited[] = $dspNode;
+        $visited[$start->id] = $dspNode;
+        $stack = [];
         $dspNode->weightSum = 0;
+        $dspNode->estimatedWeight = $dspNode->weightSum + $dspNode->node->getDistance($target);
 
         $nextDspNode = $dspNode;
         while($nextDspNode != null) {
@@ -125,8 +120,8 @@ class Day15
             }
             foreach ($nextDspNode->node->neighbours as $neighbour) {
                 $neighbourNode = null;
-                if ($this->get($visited, $neighbour) !== false) {
-                    $neighbourNode = $this->get($visited, $neighbour);
+                if ($this->get($visited, $neighbour->id) !== false) {
+                    $neighbourNode = $this->get($visited, $neighbour->id);
                 } else {
                     $neighbourNode = new DSPNode($neighbour);
                 }
@@ -135,32 +130,23 @@ class Day15
 
                 if ($tentativeWeight < $neighbourNode->weightSum) {
                     $neighbourNode->weightSum = $tentativeWeight;
-                    $neighbourNode->from = $nextDspNode;
                     $neighbourNode->estimatedWeight = $neighbourNode->weightSum + $neighbourNode->node->getDistance($target);
 
-                    if ($this->get($visited, $neighbourNode) === false) {
-                        $visited[] = $neighbourNode;
+                    if (in_array($neighbourNode, $visited, true) === false) {
+                        $visited[$neighbourNode->node->id] = $neighbourNode;
+                        $stack[] = $neighbourNode;
                     }
                 }
             }
             $nextDspNode->marked = true;
-            $nextDspNode = $this->getNextNode($visited);
+            $sort = function($a, $b) {
+              return $b->estimatedWeight <=> $a->estimatedWeight;
+            };
+            usort($stack, $sort);
+            $nextDspNode = array_pop($stack);
         }
 
         return null;
-    }
-
-    public function getNextNode($visited) {
-        $lowestWeight = PHP_INT_MAX;
-        $lowestValNode = null;
-        foreach ($visited as $dspNode) {
-            if ($dspNode->isNotMarked() && $dspNode->estimatedWeight < $lowestWeight) {
-                $lowestWeight = $dspNode->estimatedWeight;
-                $lowestValNode = $dspNode;
-            }
-        }
-
-        return $lowestValNode;
     }
 
     public function findNeighbour($nodes, $x,$y) {
@@ -177,17 +163,15 @@ class Day15
 
     public function constructPath($visited, $start, $target) {
         $path = new Path();
-        $targetNode = $this->get($visited, $target);
+        $targetNode = $this->get($visited, $target->id);
         $path->totalWeight = $targetNode->weightSum;
 
         return $targetNode->weightSum;
     }
 
-    public function get($visited, $target) {
-        foreach ($visited as $dspNode) {
-            if ($dspNode->node === $target) {
-                return $dspNode;
-            }
+    public function get($visited, $targetId) {
+        if (isset($visited[$targetId])){
+            return $visited[$targetId];
         }
 
         return false;
@@ -196,7 +180,6 @@ class Day15
 
 class Path {
     public $totalWeight;
-    public $path = [];
 }
 
 class Vertex {
@@ -257,11 +240,7 @@ class Vertex {
     }
 
     public function getDistance(Vertex $target) {
-    // calculate the cartesion distance between this and the target junction
-    // using the locationX and locationY as provided in the dutch RD-coordinate system
-        $dX = $target->x - $this->x;
-        $dY = $target->y - $this->y;
-        return sqrt(($dX*$dX + $dY*$dY));
+        return abs($target->x - $this->x) + abs($target->y - $this->y);
     }
 }
 
@@ -270,7 +249,6 @@ class DSPNode {
     public bool $marked = false;
     public int $weightSum = PHP_INT_MAX;
     public int $estimatedWeight = PHP_INT_MAX;
-    public DSPNode|null $from = null;
 
     /**
      * @param Vertex $node

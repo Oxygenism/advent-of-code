@@ -52,7 +52,12 @@
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
 === Day15 - RunA ===
-Result: 
-Executed in: 0.119ms
+
+
+Result: 3025
+Executed in: 1984119.243ms
 
 === Day15 - RunB ===
+Result: 
+Executed in: 0.101ms
+
