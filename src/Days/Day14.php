@@ -38,14 +38,15 @@ class Day14
         }
 
         $pairCount = [];
+        $charCount = array_count_values(str_split($polyTemplate));
         for ($pos = 0; $pos < $polyTemplateLength - 1; $pos++) {
+
             $part = substr($polyTemplate, $pos, 2);
             if (isset($pairCount[$part])) {
                 $pairCount[$part] += 1;
             } else {
                 $pairCount[$part] = 1;
             }
-
         }
 
         for ($i = 0; $i < $times; $i++) {
@@ -72,24 +73,18 @@ class Day14
                     } else {
                         $tempCount[$newPair2] = $value;
                     }
+
+                    if (isset($charCount[$newPoly])) {
+                        $charCount[$newPoly] += $value;
+                    }
+                    else {
+                        $charCount[$newPoly] = $value;
+                    }
                 } else {
                     $tempCount[$key] = $value;
                 }
             }
-
             $pairCount = $tempCount;
-        }
-
-        $charCount = [];
-        foreach ($pairCount as $key=>$value) {
-            $chars = str_split($key);
-            foreach ($chars as $char) {
-                if (isset($charCount[$char])) {
-                    $charCount[$char] += $value / 2;
-                } else {
-                    $charCount[$char] = $value / 2;
-                }
-            }
         }
 
         sort($charCount);
