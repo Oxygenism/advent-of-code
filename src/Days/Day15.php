@@ -3,6 +3,7 @@
 namespace App\Advent\Days;
 
 use App\Advent\Utility\DataService;
+use MongoDB\Driver\Query;
 use SplMinHeap;
 
 class Day15
@@ -17,12 +18,12 @@ class Day15
 
     public function runA()
     {
-        return $this->run('day15_test.txt', true);
+        return $this->run('day15.txt');
     }
 
     public function runB()
     {
-//        return $this->run('day15.txt', true);
+        return $this->run('day15.txt', true);
     }
 
     public function run($file, $state = false) {
@@ -104,24 +105,26 @@ class Day15
     }
 
     public function getShortestPath($nodes, $start, $target) {
-        $visited = array_fill_keys(range(0, count($nodes) - 1), null);
+        $visited = new \SplFixedArray(count($nodes) + 1);
 
         $dspNode = new DspNode($start);
-        $visited[$start->id] = $dspNode;
-        $stack = [];
+        $queue = new AStarPriorityQueue();
+        $visited->offsetSet($start->id, $dspNode);
+        $queue->insert($dspNode, 0);
+
         $dspNode->weightSum = 0;
         $dspNode->estimatedWeight = $dspNode->weightSum + $dspNode->node->getDistance($target);
 
-        $nextDspNode = $dspNode;
-        while($nextDspNode != null) {
-            echo $nextDspNode->__toString();
+        while($queue->valid()) {
+            $nextDspNode = $queue->extract();
             if ($nextDspNode->node === $target) {
                 return $this->constructPath($visited, $start, $target);
             }
             foreach ($nextDspNode->node->neighbours as $neighbour) {
                 $neighbourNode = null;
-                if ($this->get($visited, $neighbour->id) !== false) {
-                    $neighbourNode = $this->get($visited, $neighbour->id);
+                $isVisited = $visited->offsetGet($neighbour->id);
+                if ($isVisited !== null) {
+                    $neighbourNode = $isVisited;
                 } else {
                     $neighbourNode = new DSPNode($neighbour);
                 }
@@ -132,18 +135,14 @@ class Day15
                     $neighbourNode->weightSum = $tentativeWeight;
                     $neighbourNode->estimatedWeight = $neighbourNode->weightSum + $neighbourNode->node->getDistance($target);
 
-                    if (in_array($neighbourNode, $visited, true) === false) {
-                        $visited[$neighbourNode->node->id] = $neighbourNode;
-                        $stack[] = $neighbourNode;
+                    if ($isVisited === null) {
+                        echo $neighbour->id . PHP_EOL;
+                        $visited->offsetSet($neighbour->id, $neighbourNode);
+                        $queue->insert($neighbourNode, $neighbourNode->estimatedWeight);
                     }
                 }
             }
             $nextDspNode->marked = true;
-            $sort = function($a, $b) {
-              return $b->estimatedWeight <=> $a->estimatedWeight;
-            };
-            usort($stack, $sort);
-            $nextDspNode = array_pop($stack);
         }
 
         return null;
@@ -163,21 +162,20 @@ class Day15
 
     public function constructPath($visited, $start, $target) {
         $path = new Path();
-        $targetNode = $this->get($visited, $target->id);
+        $targetNode = $visited->offsetGet($target->id);
         $path->totalWeight = $targetNode->weightSum;
 
         return $targetNode->weightSum;
     }
-
-    public function get($visited, $targetId) {
-        if (isset($visited[$targetId])){
-            return $visited[$targetId];
-        }
-
-        return false;
-    }
 }
 
+class AStarPriorityQueue extends \SplPriorityQueue {
+    public function compare($priority1, $priority2)
+    {
+        if ($priority1 === $priority2) return 0;
+        return $priority1 < $priority2 ? 1 : -1;
+    }
+}
 class Path {
     public $totalWeight;
 }
