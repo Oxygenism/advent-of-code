@@ -32,7 +32,8 @@ $days = [
 //    new App\Advent\Days\Day12(),
 //    new App\Advent\Days\Day13(),
 //    new App\Advent\Days\Day14(),
-    new App\Advent\Days\Day15(),
+//    new App\Advent\Days\Day15(),
+    new App\Advent\Days\Day16(),
 ];
 
 foreach ($days as $day) {

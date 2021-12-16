@@ -8,25 +8,24 @@ class Day0
 {
     private DataService $dataService;
 
-    public function __construct()
-    {
-        $this->dataService = new DataService();
-    }
-
     public function runA()
     {
-        $handle = $this->dataService->read("day0_test.txt");
-
-
-//        return $count;
+        return $this->run('day0_test.txt');
     }
 
     public function runB()
     {
+        return $this->run('day0_test.txt', true);
+    }
+
+    public function run($file, $state = false) {
         $handle = $this->dataService->read("day0_test.txt");
+        while ($handle->valid()) {
+            $handle->current();
 
+            $handle->next();
+        }
 
-
-//        return $count;
+        return "Only a bad programmer.";
     }
 }

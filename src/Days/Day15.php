@@ -114,7 +114,7 @@ class Day15
 
         $dspNode->weightSum = 0;
         $dspNode->estimatedWeight = $dspNode->weightSum + $dspNode->node->getDistance($target);
-
+        $count = 0;
         while($queue->valid()) {
             $nextDspNode = $queue->extract();
             if ($nextDspNode->node === $target) {
@@ -136,13 +136,13 @@ class Day15
                     $neighbourNode->estimatedWeight = $neighbourNode->weightSum + $neighbourNode->node->getDistance($target);
 
                     if ($isVisited === null) {
-                        echo $neighbour->id . PHP_EOL;
                         $visited->offsetSet($neighbour->id, $neighbourNode);
                         $queue->insert($neighbourNode, $neighbourNode->estimatedWeight);
                     }
                 }
             }
             $nextDspNode->marked = true;
+            $count++;
         }
 
         return null;
