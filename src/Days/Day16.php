@@ -111,8 +111,6 @@ class Day16
         return "only a bad programmer.";
     }
 
-    public function readPacket()
-
     public function typeCalculation(array $values, $typeId) {
         switch($typeId){
             case "0":
