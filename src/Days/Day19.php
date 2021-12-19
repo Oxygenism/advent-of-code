@@ -4,7 +4,7 @@ namespace App\Advent\Days;
 
 use App\Advent\Utility\DataService;
 
-class Day0
+class Day19
 {
     private DataService $dataService;
 

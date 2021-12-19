@@ -33,12 +33,12 @@ class Day16
 
     public function runA()
     {
-//        return $this->run('day16.txt');
+        return $this->run('day16_test.txt');
     }
 
     public function runB()
     {
-        return $this->run('day16.txt', true);
+//        return $this->run('day16.txt', true);
     }
 
     public function run($file, $state = false) {
@@ -50,65 +50,57 @@ class Day16
             $binary .= self::BIN_TABLE[$hexBit];
         }
         $packetValue = null;
-
-        $count = 0;
-        $binaryLength = strlen($binary);
-        $versionCount = 0;
-        $typeIdStack = [];
-        $numberCount = [];
-        $lastTypeId = null;
-        while ($count < $binaryLength) {
-            if (abs($binaryLength - $count) < 11) {
-                break;
-            }
-            $packetData = $this->getVersionTypeLength($binary, $count);
-            $versionCount += $packetData[0];
-            $count += 6;
-            if ($packetData[1] === 4) {
-                $type4Return = $this->type4(substr($binary, $count));
-                $count += ($type4Return[1] * 5);
-
-                array_push($numberCount, ...$type4Return[0]);
-//                $typeId = array_pop($typeIdStack);
-//                if ($typeId !== 4) {
-//                    $temp[] = $this->typeCalculation($numberCount, array_pop($typeIdStack));
-//                    $numberCount = $temp;
-//                }
-            } else {
-                $typeIdStack[] = $packetData[1];
-                $count++;
-                if ($packetData[2] === "0") {
-                    $packetSize = bindec(substr($binary, $count, 15));
-                    $count += 15;
-                    echo $packetSize . PHP_EOL;
-                } else {
-                    $times = bindec(substr($binary, $count, 11));
-                    $count += 11;
-
-                    $subValueCount = [];
-                    for ($i = 0; $i < $times; $i++) {
-                        $packetData = $this->getVersionTypeLength($binary, $count);
-                        $versionCount += $packetData[0];
-                        $count += 6;
-                        $type4Return = $this->type4(substr($binary, $count));
-                        $count += ($type4Return[1] * 5);
-                        array_push($subValueCount, ...$type4Return[0]);
-                    }
-
-                    $numberCount[] = $this->typeCalculation($subValueCount, array_pop($typeIdStack));
-                }
-            }
-        }
-
-        $tempCount = [];
-        if (count($typeIdStack) !== 0) {
-            $result = $this->typeCalculation($numberCount, array_pop($typeIdStack));
-        } else {
-            $result = $numberCount[0];
-        }
-
-        echo "Version: $versionCount = Result: $result \n";
+        $result = $this->packetReader($binary, 0);
+        echo "Version: $result[2] = Result: $result[0] \n";
         return "only a bad programmer.";
+    }
+
+    public function packetReader($packet) {
+        $versionCount = 0;
+        $offset = 0;
+        if (strlen($packet) < 11) {
+            return [0, strlen($packet), 0];
+        }
+        $packetData = $this->getVersionTypeLength($packet);
+        $offset += 6;
+        $versionCount += $packetData[0];
+
+        if ($packetData[1] === 4) {
+            $type4Return = $this->type4(substr($packet, $offset));
+            $offset += ($type4Return[1] * 5);
+
+            return [$type4Return[0], $offset, $versionCount];
+        }
+
+        $numberCount = [];
+        $offset++;
+
+        if ($packetData[2] === "0") {
+            $packetSize = bindec(substr($packet, $offset, 15));
+            $offset += 15;
+            $packetSizeUsed = 0;
+            while($packetSizeUsed < $packetSize) {
+                $result = $this->packetReader(substr($packet, $offset, ($packetSize - $packetSizeUsed)));
+
+                $numberCount[] = $result[0];
+                $packetSizeUsed += $result[1];
+                $offset += $result[1];
+                $versionCount += $result[2];
+            }
+        } else {
+            $times = bindec(substr($packet, $offset, 11));
+            $offset += 11;
+
+            for ($i = 0; $i < $times; $i++) {
+                $result = $this->packetReader(substr($packet, $offset));
+                $numberCount[] = $result[0];
+                $offset += $result[1];
+                $versionCount += $result[2];
+            }
+        }
+
+//        return [0, $offset, $versionCount];
+        return [$this->typeCalculation($numberCount, $packetData[1]), $offset, $versionCount];
     }
 
     public function typeCalculation(array $values, $typeId) {
@@ -136,26 +128,23 @@ class Day16
         $subPackets = str_split($string, 5);
         $lastGroup = false;
         $count = 0;
-        $packetValues = [];
+        $packetValues = "";
         while ($lastGroup === false) {
             $subPacket = $subPackets[$count];
-            $packetValues[] = bindec(substr($subPacket, 1, 4));
-
-            if ($subPacket[0] === "0") {
-                $lastGroup = true;
-            }
+            $packetValues .= substr($subPacket, 1, 4);
             $count++;
+            $lastGroup = $subPacket[0] !== "1";
         }
 
-        return [$packetValues, $count];
+        return [bindec($packetValues), $count];
     }
 
-    public function getVersionTypeLength($binary, $offset) {
-        $version = bindec(substr($binary, $offset,3));
-        $type = bindec(substr($binary, $offset + 3,3));
+    public function getVersionTypeLength($binary) {
+        $version = bindec(substr($binary, 0,6));
+        $type = bindec(substr($binary,  3,3));
         $length = false;
         if ($type !== 4) {
-            $length = $binary[$offset + 6];
+            $length = $binary[6];
         }
 
         return [$version, $type, $length];
