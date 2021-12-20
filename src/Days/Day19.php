@@ -15,7 +15,7 @@ class Day19
 
     public function runA()
     {
-        return $this->run('day0_test.txt');
+        return $this->run('day19_test.txt');
     }
 
     public function runB()
@@ -26,8 +26,13 @@ class Day19
     public function run($file, $state = false) {
         $handle = $this->dataService->read($file);
         while ($handle->valid()) {
-            $handle->current();
+            $scan = [];
+            while ($handle->current() !== PHP_EOL) {
+                $scan[] = explode(',',trim($handle->current()));
 
+            }
+
+            $handle->next();
             $handle->next();
         }
 
