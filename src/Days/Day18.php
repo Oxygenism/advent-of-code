@@ -30,22 +30,22 @@ class Day18
         $handle->next();
 //        $fuckYouSlugs[] = $this->getSlug($handle);
 //        $handle->next();
+        print_r($fuckYouSlugs);
         while(true){
             if ($this->canExplode($fuckYouSlugs) !== false) {
                 $fuckYouSlugs = $this->slugExplode($fuckYouSlugs);
             } else if ($this->canSplit($fuckYouSlugs) !== false) {
                 $fuckYouSlugs = $this->slugSplit($fuckYouSlugs);
             } else if ($handle->valid()) {
-                $fuckYouSlugs[] = $this->getSlug($handle);
+                $fuckYouSlugs = [$fuckYouSlugs, $this->getSlug($handle)];
                 $handle->next();
-                break;
             } else {
                 //can't do either.
                 break;
             }
+            print_r($fuckYouSlugs);
         }
 
-        print_r($fuckYouSlugs);
 
         return "Only a bad programmer.";
     }
@@ -67,23 +67,41 @@ class Day18
         if ($r === false) {
             return $fuckYouSlugs;
         }
-        $left = $right = false;
-        $left = $this->getLeftInt($fuckYouSlugs, $r);
-        $right = $this->getRightInt($fuckYouSlugs, $r);
+        $left = $right = $closest = false;
+        if (end($r) === 0) {
+            $right = $fuckYouSlugs[$r[0]][$r[1]][$r[2]][1];
+            $closest = $this->getLeftInt($fuckYouSlugs, $r);
+        } else {
+            $left = $fuckYouSlugs[$r[0]][$r[1]][$r[2]][0];
+            $closest = $this->getRightInt($fuckYouSlugs, $r);
+        }
 
-        if ($left !== false && $right === false) {
+        $val = 0;
+        if (is_int($left)) {
             $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][0] += $left;
+            $val = $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][1];
             $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][1] = 0;
         }
 
-        if ($left === false && $right !== false) {
-            $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][0] = 0;
+        if (is_int($right)) {
             $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][1] += $right;
+            $val = $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][0];
+            $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][0] = 0;
         }
 
-        if ($left !== false && $right !== false) {
-            $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][0] += $left;
-            $fuckYouSlugs[$r[0]][$r[1]][$r[2]][$r[3]][1] += $right;
+        if (is_array($closest)) {
+            $count = count($closest);
+            if ($count === 1) {
+                $fuckYouSlugs[$closest[0]] += $val;
+            } elseif ($count === 2) {
+                $fuckYouSlugs[$closest[0]][$closest[1]] += $val;
+            } elseif ($count === 3) {
+                $fuckYouSlugs[$closest[0]][$closest[1]][$closest[2]] += $val;
+            } elseif ($count === 4) {
+                $fuckYouSlugs[$closest[0]][$closest[1]][$closest[2]][$closest[3]] += $val;
+            } elseif ($count === 5) {
+                $fuckYouSlugs[$closest[0]][$closest[1]][$closest[2]][$closest[3]][$closest[4]] += $val;
+            }
         }
 
         /** this does something. $fuckYouSlugs */
@@ -121,16 +139,16 @@ class Day18
             $current = $current[$key];
         }
 
-        if ($pathKey === 1) {
-            if (is_int($current[0])) {
-                return [[...$result, 0],$current[0]];
-            }
-        } else {
+        if ($pathKey === 0) {
             return $this->getLeftInt($fuckYouSlugs, $result);
-
+        } else {
+            if (is_int($current[0])) {
+                return [...$result, 0];
+            }
         }
 
-        return $this->arrayFindLeftInt($current);
+        $keyToCheck = ($pathKey === 1)? 0 : 1;
+        return $this->arrayFindLeftInt($current, $keyToCheck);
     }
 
     public function getRightInt($fuckYouSlugs, $result) {
@@ -147,28 +165,41 @@ class Day18
             return $this->getRightInt($fuckYouSlugs, $result);
         } else {
             if (is_int($current[1])) {
-                return [[...$result, 1],$current[1]];
+                return [...$result, 1];
             }
         }
-
-        return $this->arrayFindRightInt($current);
-
+        $keyToCheck = ($pathKey === 0)? 1 : 0;
+        return $this->arrayFindRightInt($current, $keyToCheck);
     }
 
-    public function arrayFindLeftInt($fuckYouSlugs) {
-        for ($i = count($fuckYouSlugs) - 1; $i > 0; $i--) {
+    public function arrayFindLeftInt($fuckYouSlugs, $key = false) {
+        for ($i = ($key === false)? 1 : $key; $i > 0; $i--) {
             if (is_int($fuckYouSlugs[$i])) {
-                return $fuckYouSlugs[$i];
+                return [$i];
+            }
+
+            $r = $this->arrayFindRightInt($fuckYouSlugs[$i]);
+            if ($r !== false) {
+                return [$i, ...$r];
             }
         }
+
+        return false;
     }
 
-    public function arrayFindRightInt($fuckYouSlugs) {
-        for ($i = 0; $i > count($fuckYouSlugs); $i++) {
+    public function arrayFindRightInt($fuckYouSlugs, $key = false) {
+        for ($i = ($key === false)? 0 : $key; $i < count($fuckYouSlugs); $i++) {
             if (is_int($fuckYouSlugs[$i])) {
-                return $fuckYouSlugs[$i];
+                return [$i];
+            }
+
+            $r = $this->arrayFindRightInt($fuckYouSlugs[$i]);
+            if ($r !== false) {
+                return [$i, ...$r];
             }
         }
+
+        return false;
     }
 
     public function getLeftMostSplitablePair($fuckYouSlugs, $return = []) {
