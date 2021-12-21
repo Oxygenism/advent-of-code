@@ -2,33 +2,23 @@
 
 namespace App\Advent\Days;
 
-use App\Advent\Utility\DataService;
-
 class Day21
 {
-    private DataService $dataService;
     private int $count = 0;
     private int $rollCount = 0;
     private int $scoreForWin = 0;
     private array $dupes = [];
     private array $newNums = [];
 
-
-    public function __construct()
-    {
-        $this->dataService = new DataService();
-    }
-
     public function runA()
     {
 //        return $this->run([4,8]);  //test
-        return $this->run([7,1]);  //actual
+        return $this->run([7,1]);  //input
     }
 
     public function runB()
     {
         $this->scoreForWin = 21;
-//        $result = $this->runRecursive([7,1],[0,0],0);
         $numbers = [1,2,3];
         foreach ($numbers as $num1) {
             foreach ($numbers as $num2) {
@@ -38,15 +28,15 @@ class Day21
             }
         }
 
-        $result = $this->runRecursive([4,8],[0,0],0);
+//        $result = $this->runRecursive([4,8],[0,0],0); //test
+        $result = $this->runRecursive([7,1],[0,0],0); //input
 
         return max($result);
     }
 
     public function runRecursive($positions, $scores, $currentTurn) {
-        $arrayKey = implode(';', [implode(',',$positions), implode(',',$scores), $currentTurn]);
-        if (array_key_exists($arrayKey, $this->dupes)) {
-            return $this->dupes[$arrayKey];
+        if (isset($this->dupes[implode(',', $positions)][implode(',',$scores)][$currentTurn])) {
+            return $this->dupes[implode(',', $positions)][implode(',',$scores)][$currentTurn];
         }
 
         if ($scores[0] >= $this->scoreForWin) {
@@ -62,23 +52,17 @@ class Day21
             $new_positions = $positions;
             $new_scores = $scores;
 
-            $remainder = ($sum + $new_positions[$currentTurn]) % 10;
-//            $new_positions[$currentTurn] = ($remainder === 0)? 10 : $remainder;
-//            $new_scores[$currentTurn] += ($remainder === 0)? 10 : $remainder;
-            $new_positions[$currentTurn] = $remainder;
-            $new_scores[$currentTurn] += $remainder + 1;
+            $remainder = ($sum + $positions[$currentTurn]) % 10;
+            $new_positions[$currentTurn] = ($remainder === 0)? 10 : $remainder;
+            $new_scores[$currentTurn] += ($remainder === 0)? 10 : $remainder;
 
-            $currentTurn = ($currentTurn === 0)? 1 : 0;
-            $result = $this->runRecursive($new_positions, $new_scores, $currentTurn);
+            $newTurn = ($currentTurn === 0)? 1 : 0;
+            $result = $this->runRecursive($new_positions, $new_scores, $newTurn);
             $winCount[0] += $result[0];
             $winCount[1] += $result[1];
         }
 
-        if (array_key_exists($arrayKey, $this->dupes)) {
-            echo "????" . PHP_EOL;
-        }
-
-        $this->dupes[$arrayKey] = $winCount;
+        $this->dupes[implode(',', $positions)][implode(',',$scores)][$currentTurn] = $winCount;
         return $winCount;
     }
 

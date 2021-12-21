@@ -51,16 +51,11 @@
              ██          ░░░░██▓▓▓▓██░░      ████░░░░████      ░░██▓▓▓▓██░░░░          ██
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
-=== Day20 - RunA ===
-Result: 15714
-Executed in: 5828.912ms
-
-=== Day20 - RunB ===
-Result: 
-Executed in: 0.284ms
-
 === Day21 - RunA ===
 Result: 684495
-Executed in: 59.051ms
+Executed in: 7.782ms
 
 === Day21 - RunB ===
+Result: 152587196649184
+Executed in: 2857.754ms
+
