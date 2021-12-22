@@ -12,8 +12,8 @@ class Day21
 
     public function runA()
     {
-//        return $this->run([4,8]);  //test
-        return $this->run([7,1]);  //input
+        return $this->run([4,8]);  //test
+//        return $this->run([7,1]);  //input
     }
 
     public function runB()
@@ -28,8 +28,8 @@ class Day21
             }
         }
 
-//        $result = $this->runRecursive([4,8],[0,0],0); //test
-        $result = $this->runRecursive([7,1],[0,0],0); //input
+        $result = $this->runRecursive([4,8],[0,0],0); //test
+//        $result = $this->runRecursive([7,1],[0,0],0); //input
 
         return max($result);
     }

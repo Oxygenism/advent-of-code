@@ -52,10 +52,10 @@
              ██        ░░░░██▓▓▓▓▓▓██░░                        ░░██▓▓▓▓▓▓██░░░░        ██
                                      ░░  ░░░░            ░░    ░░░░░░      ░░
 === Day21 - RunA ===
-Result: 684495
-Executed in: 7.782ms
+Result: 739785
+Executed in: 4.709ms
 
 === Day21 - RunB ===
-Result: 152587196649184
-Executed in: 2857.754ms
+Result: 444356092776315
+Executed in: 2254.646ms
 
