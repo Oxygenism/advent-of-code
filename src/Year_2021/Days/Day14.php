@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
 use App\Advent\Utility\DataService;
 

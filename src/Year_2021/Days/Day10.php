@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day10
@@ -19,7 +18,7 @@ class Day10
 
     public function runA()
     {
-        $handle = $this->dataService->read("day10.txt");
+        $handle = $this->dataService->read("day10.txt", 'Year_2021/');
         $illegalChars = [];
 
         while ($handle->valid()) {
@@ -62,7 +61,7 @@ class Day10
 
     public function runB()
     {
-        $handle = $this->dataService->read("day10.txt");
+        $handle = $this->dataService->read("day10.txt", 'Year_2021/');
         $illegalChars = [];
         $validLines = [];
 

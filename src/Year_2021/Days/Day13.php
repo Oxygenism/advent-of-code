@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day13
@@ -18,7 +17,7 @@ class Day13
 
     public function runA()
     {
-        $handle = $this->dataService->read('day13.txt');
+        $handle = $this->dataService->read('day13.txt', 'Year_2021/');
         $foldInstructionsFound = false;
         $numberPairs = [];
         $foldInstructions = [];

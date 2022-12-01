@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day4
@@ -16,8 +15,8 @@ class Day4
 
     public function runA()
     {
-//        $handle = $this->dataService->read("day4_test.txt");
-        $handle = $this->dataService->read("day4.txt");
+//        $handle = $this->dataService->read("day4_test.txt", 'Year_2021/');
+        $handle = $this->dataService->read("day4.txt", 'Year_2021/');
         $input = explode(",", $handle->current());
         $handle->next();
 
@@ -38,7 +37,7 @@ class Day4
 
     public function runB()
     {
-        $handle = $this->dataService->read("day4.txt");
+        $handle = $this->dataService->read("day4.txt", 'Year_2021/');
         $input = explode(",", $this->sanitizeInput($handle->current()));
         $handle->next();
 
@@ -69,7 +68,7 @@ class Day4
         $boardTemplate = array_fill(0, 5, array_fill(0, 5, 0));
         $id = 0;
         while($handle->valid()) {
-            $board = new Board($id, $boardTemplate);
+            $board = new \App\Advent\Days\Board($id, $boardTemplate);
             for ($i = 0; $i < 5; $i++) {
                 $handle->next();
 

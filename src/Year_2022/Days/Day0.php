@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\year_2022\Days;
 
 use App\Advent\Utility\DataService;
 
-class Day19
+class Day0
 {
     private DataService $dataService;
 
@@ -15,7 +15,7 @@ class Day19
 
     public function runA()
     {
-        return $this->run('day19_test.txt');
+        return $this->run('day0_test.txt');
     }
 
     public function runB()
@@ -26,13 +26,8 @@ class Day19
     public function run($file, $state = false) {
         $handle = $this->dataService->read($file);
         while ($handle->valid()) {
-            $scan = [];
-            while ($handle->current() !== PHP_EOL) {
-                $scan[] = explode(',',trim($handle->current()));
+            $handle->current();
 
-            }
-
-            $handle->next();
             $handle->next();
         }
 

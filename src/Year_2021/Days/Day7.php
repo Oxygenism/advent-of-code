@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day7
@@ -16,7 +15,7 @@ class Day7
 
     public function runA()
     {
-        $handle = $this->dataService->read("day7.txt");
+        $handle = $this->dataService->read("day7.txt", 'Year_2021/');
         $inputString = $handle->current();
         $sanitizedString = $this->sanitizeInput($inputString);
         $inputArray = explode(',', $sanitizedString);
@@ -34,7 +33,7 @@ class Day7
 
     public function runB()
     {
-        $handle = $this->dataService->read("day7.txt");
+        $handle = $this->dataService->read("day7.txt", 'Year_2021/');
         $inputString = $handle->current();
         $sanitizedString = $this->sanitizeInput($inputString);
         $inputArray = explode(',', $sanitizedString);

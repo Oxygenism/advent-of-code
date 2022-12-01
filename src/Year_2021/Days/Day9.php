@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
+use JetBrains\PhpStorm\Pure;
 
 class Day9
 {
@@ -16,7 +16,7 @@ class Day9
 
     public function runA()
     {
-        $handle = $this->dataService->read("day9.txt");
+        $handle = $this->dataService->read("day9.txt", 'Year_2021/');
         $lineCount = $handle->count();
         $lineWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         $heightMap = [];
@@ -52,7 +52,7 @@ class Day9
 
     public function runB()
     {
-        $handle = $this->dataService->read("day9.txt");
+        $handle = $this->dataService->read("day9.txt", 'Year_2021/');
         $lineCount = $handle->count();
         $lineWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         $heightMap = [];
@@ -73,7 +73,7 @@ class Day9
                 $neighbours["right"] = $this->findNeighbour($heightMapObjects, $x, ($y + 1));
                 $neighbours["up"] = $this->findNeighbour($heightMapObjects, ($x - 1), $y);
                 $neighbours["down"] = $this->findNeighbour($heightMapObjects, ($x + 1), $y);
-                $current = new heightMapPoint(++$id, $x, $y, $heightMap[$x][$y], $neighbours);
+                $current = new \App\Advent\Days\heightMapPoint(++$id, $x, $y, $heightMap[$x][$y], $neighbours);
                 $current->setNeighbour();
                 $heightMapObjects[] = $current;
             }

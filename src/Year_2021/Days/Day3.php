@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day3
@@ -16,7 +15,7 @@ class Day3
 
     public function runA()
     {
-        $handle = $this->dataService->read("day3.txt");
+        $handle = $this->dataService->read("day3.txt", 'Year_2021/');
         $bitLength = strlen(trim($handle->current()));
 
         $gamma = $epsilon = "";
@@ -49,7 +48,7 @@ class Day3
 
     public function runB()
     {
-        $handle = $this->dataService->read("day3.txt");
+        $handle = $this->dataService->read("day3.txt", 'Year_2021/');
 
         $oxyGen = $this->getBitsFor(0, $handle);
         $co2Scrub = $this->getBitsFor(0, $handle, true);

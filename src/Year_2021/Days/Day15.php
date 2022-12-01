@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
 use App\Advent\Utility\DataService;
-use MongoDB\Driver\Query;
-use SplMinHeap;
 
 class Day15
 {
@@ -18,7 +16,7 @@ class Day15
 
     public function runA()
     {
-        return $this->run('day15.txt');
+        return $this->run('day15.txt', 'Year_2021/');
     }
 
     public function runB()

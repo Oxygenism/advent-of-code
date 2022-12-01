@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day8
@@ -16,7 +15,7 @@ class Day8
 
     public function runA()
     {
-        $handle = $this->dataService->read("day8.txt");
+        $handle = $this->dataService->read("day8.txt", 'Year_2021/');
         $count = array_fill(0, 8, 0);
         while ($handle->valid()) {
             $trimmed = $this->sanitizeInput($handle->current());
@@ -36,7 +35,7 @@ class Day8
 
     public function runB()
     {
-        $handle = $this->dataService->read("day8.txt");
+        $handle = $this->dataService->read("day8.txt", 'Year_2021/');
         $sum = 0;
         while ($handle->valid()) {
             $solved = array_fill(0, 9, null);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
 use App\Advent\Utility\DataService;
 
@@ -15,7 +15,7 @@ class Day18
 
     public function runA()
     {
-        return $this->run('day18_test.txt');
+        return $this->run('day18_test.txt', 'Year_2021/');
     }
 
     public function runB()

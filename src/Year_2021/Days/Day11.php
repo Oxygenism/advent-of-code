@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day11
@@ -36,7 +35,7 @@ class Day11
 
     public function runA()
     {
-        $handle = $this->dataService->read("day11.txt");
+        $handle = $this->dataService->read("day11.txt", "Year_2021/");
         $this->octopiLength = $handle->count();
         $this->octopiWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         foreach ($handle as $lineOfOctopi) {

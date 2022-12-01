@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
 use App\Advent\Utility\DataService;
 
@@ -19,7 +19,7 @@ class Day12
 
     public function runA()
     {
-        $handle = $this->dataService->read('day12.txt');
+        $handle = $this->dataService->read('day12.txt', 'Year_2021/');
         foreach ($handle as $cave) {
             $cave = trim($cave);
             $split = explode('-', $cave);

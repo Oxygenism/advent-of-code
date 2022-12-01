@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 /**
@@ -22,7 +21,7 @@ class Day5
 
     public function runA()
     {
-        $handle = $this->dataService->read("day5.txt");
+        $handle = $this->dataService->read("day5.txt", 'Year_2021/');
 
         $map = $this->getVertHorMap($handle);
 
@@ -41,7 +40,7 @@ class Day5
 
     public function runB()
     {
-        $handle = $this->dataService->read("day5.txt");
+        $handle = $this->dataService->read("day5.txt", 'Year_2021/');
 
         $horMap = $this->getVertHorMap($handle);
         $diagMap = $this->getDiagMap($handle, $horMap);

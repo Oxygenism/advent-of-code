@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Advent\Days;
+namespace App\Advent\Year_2021\Days;
 
-use JetBrains\PhpStorm\Pure;
 use App\Advent\Utility\DataService;
 
 class Day1
@@ -16,7 +15,7 @@ class Day1
 
     public function runA()
     {
-        $values = $this->dataService->read("day1.txt");
+        $values = $this->dataService->read("day1.txt", "Year_2021");
 
         $prev = $values->current();
         $count = 0;
@@ -38,7 +37,7 @@ class Day1
      */
     public function runB()
     {
-        $handle = $this->dataService->read("day1.txt");
+        $handle = $this->dataService->read("day1.txt", "Year_2021");
 
         $prev = [];
         $current = [];
