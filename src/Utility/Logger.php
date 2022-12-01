@@ -22,7 +22,8 @@ class Logger
         }
 
         // if you don't add `FILE_APPEND`, the file will be erased each time you add a log
-        file_put_contents(self::LOG_FILE_NAME, $log_msg, FILE_APPEND);
+        file_put_contents(self::LOG_FILE_NAME, $log_msg, FILE_APPEND|LOCK_EX);
+        echo $log_msg;
     }
 
     function unlink()

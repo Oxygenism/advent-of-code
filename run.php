@@ -10,46 +10,19 @@ use App\Advent\Utility\Timer;
 $logger = new Logger();
 $dataService = new DataService();
 $timer = new Timer();
-$logger->unlink();
 
-$handle = $dataService->read('introduction.txt', 'Templates');
-foreach ($handle as $line) {
-    $logger->log($line);
+if (isset($argv[3]) && (bool) $argv[3] === true) {
+    $logger->unlink();
 }
 
-$days2021 = [
-//    new App\Advent\Days\Day1(),
-//    new App\Advent\Days\Day2(),
-//    new App\Advent\Days\Day3(),
-//    new App\Advent\Days\Day4(),
-//    new App\Advent\Days\Day5(),
-//    new App\Advent\Days\Day6(),
-//    new App\Advent\Days\Day7(),
-//    new App\Advent\Days\Day8(),
-//    new App\Advent\Days\Day9(),
-//    new App\Advent\Days\Day10(),
-//    new App\Advent\Days\Day11(),
-//    new App\Advent\Days\Day12(),
-//    new App\Advent\Days\Day13(),
-//    new App\Advent\Days\Day14(),
-//    new App\Advent\Days\Day15(),
-//    new App\Advent\Days\Day16(),
-//    new App\Advent\Days\Day17(),
-//    new App\Advent\Days\Day18(),
-//    new App\Advent\Days\Day19(),
-//    new App\Advent\Days\Day20(),
-//    new App\Advent\Days\Day21(),
-//    new \App\Advent\year_2021\Days\Day22(),
-];
+$yearInput = (int) $argv[1];
+$dayInput = (int) $argv[2];
+$dayNamespace = sprintf("App\\Advent\\Year_%d\\Days\\Day%d", $yearInput, $dayInput);
+$day = new $dayNamespace;
 
-$days2022 = [
-    new App\Advent\Year_2022\Days\Day1(),
-    new App\Advent\Year_2022\Days\Day2()
-];
+$logger->log("Ran at: " . Date("[Y-m-d H:i:s]"));
 
-$days = [...$days2021, ...$days2022];
+$timer->run($day, 'RunA');
+$timer->run($day,  'RunB');
 
-foreach ($days as $day) {
-    $timer->run($day, 'RunA');
-    $timer->run($day,  'RunB');
-}
+$logger->log("--------------------");
