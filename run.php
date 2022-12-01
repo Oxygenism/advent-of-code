@@ -12,7 +12,7 @@ $dataService = new DataService();
 $timer = new Timer();
 $logger->unlink();
 
-$handle = $dataService->read('introduction.txt', '');
+$handle = $dataService->read('introduction.txt', 'Templates');
 foreach ($handle as $line) {
     $logger->log($line);
 }
@@ -43,7 +43,8 @@ $days2021 = [
 ];
 
 $days2022 = [
-    new App\Advent\Year_2022\Days\Day1()
+    new App\Advent\Year_2022\Days\Day1(),
+    new App\Advent\Year_2022\Days\Day2()
 ];
 
 $days = [...$days2021, ...$days2022];

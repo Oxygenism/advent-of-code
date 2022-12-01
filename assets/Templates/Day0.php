@@ -1,10 +1,9 @@
-<?php
+{{php}}
 
-namespace App\Advent\Year_2021\Days;
 
-use App\Advent\Utility\DataService;
+use App\Advent\Year_2022\Days;
 
-class Day0
+class Day{{day}}
 {
     private DataService $dataService;
 
@@ -15,12 +14,11 @@ class Day0
 
     public function runA()
     {
-        return $this->run('day0_test.txt', 'Year_2021/');
+        return $this->run('day{{day}}_test.txt', 'Year_{{year}}/');
     }
 
     public function runB()
     {
-//        return $this->run('day0_test.txt', true);
     }
 
     public function run($file, $state = false) {

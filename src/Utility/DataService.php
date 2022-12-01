@@ -8,9 +8,9 @@ use ArrayObject;
 
 class DataService
 {
-    public function read($filename, $year = '')
+    public function read($filename, $subFolder = '')
     {
-        $filePath = DOCUMENT_ROOT .'/assets/' . $year . $filename;
+        $filePath = DOCUMENT_ROOT .'/assets/' . $subFolder . $filename;
         $obj = new ArrayObject(file($filePath));
 
         return $obj->getIterator();
