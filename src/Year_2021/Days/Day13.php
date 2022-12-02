@@ -17,7 +17,7 @@ class Day13
 
     public function runA()
     {
-        $handle = $this->dataService->read('day13.txt', 'Year_2021/');
+        $handle = $this->dataService->read();
         $foldInstructionsFound = false;
         $numberPairs = [];
         $foldInstructions = [];

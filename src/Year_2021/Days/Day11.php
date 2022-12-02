@@ -35,7 +35,7 @@ class Day11
 
     public function runA()
     {
-        $handle = $this->dataService->read("day11.txt", "Year_2021/");
+        $handle = $this->dataService->read();
         $this->octopiLength = $handle->count();
         $this->octopiWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         foreach ($handle as $lineOfOctopi) {

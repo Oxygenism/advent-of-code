@@ -21,7 +21,7 @@ class Day5
 
     public function runA()
     {
-        $handle = $this->dataService->read("day5.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
 
         $map = $this->getVertHorMap($handle);
 
@@ -40,7 +40,7 @@ class Day5
 
     public function runB()
     {
-        $handle = $this->dataService->read("day5.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
 
         $horMap = $this->getVertHorMap($handle);
         $diagMap = $this->getDiagMap($handle, $horMap);

@@ -15,7 +15,7 @@ class Day8
 
     public function runA()
     {
-        $handle = $this->dataService->read("day8.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $count = array_fill(0, 8, 0);
         while ($handle->valid()) {
             $trimmed = $this->sanitizeInput($handle->current());
@@ -35,7 +35,7 @@ class Day8
 
     public function runB()
     {
-        $handle = $this->dataService->read("day8.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $sum = 0;
         while ($handle->valid()) {
             $solved = array_fill(0, 9, null);

@@ -15,16 +15,16 @@ class Day{{day}}
 
     public function runA()
     {
-        // return $this->run('day{{day}}_test.txt');
-        return $this->run('day{{day}}.txt');
+        return $this->run();
     }
 
     public function runB()
     {
+        return $this->run(true);
     }
 
-    public function run($file, $state = false) {
-        $handle = $this->dataService->read($file, 'Year_{{year}}/');
+    public function run($state = false) {
+        $handle = $this->dataService->read();
         while ($handle->valid()) {
             $handle->current();
 

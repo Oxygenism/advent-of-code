@@ -35,7 +35,7 @@ class Day1
 
     public function getCaloriesForElves(): array
     {
-        $handle = $this->dataService->read("day1.txt", "Year_2022/");
+        $handle = $this->dataService->read();
         $caloriesForElf = [];
         $caloriesForElves = [];
         while ($handle->valid()){

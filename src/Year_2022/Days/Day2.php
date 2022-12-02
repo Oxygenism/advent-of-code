@@ -49,7 +49,7 @@ class Day2
     }
 
     public function run($file, $state = false) {
-        $handle = $this->dataService->read($file, 'Year_2022/');
+        $handle = $this->dataService->read();
         while ($handle->valid()) {
             $current = $handle->current();
             $moves = explode(' ', trim($current));
@@ -70,7 +70,7 @@ class Day2
 
     private function rigGame($opponentMove, $outcome) {
         foreach ($this->winMapping as $key => $option) {
-            if ( $outcome === "X" && $opponentMove === $key) {
+            if ($outcome === "X" && $opponentMove === $key) {
                 $this->awardPoints($opponentMove, $option);
                 break;
             } elseif ($outcome === "Z" && $opponentMove === $option) {

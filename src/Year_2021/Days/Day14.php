@@ -15,16 +15,16 @@ class Day14
 
     public function runA()
     {
-        return $this->run('day14.txt', 10);
+        return $this->run(10);
     }
 
     public function runB()
     {
-        return $this->run('day14.txt', 40);
+        return $this->run(40);
     }
 
-    public function run($file, $times) {
-        $handle = $this->dataService->read($file);
+    public function run($times) {
+        $handle = $this->dataService->read();
         $polyTemplate = trim($handle->current());
         $polyTemplateLength = strlen($polyTemplate);
         $handle->next();

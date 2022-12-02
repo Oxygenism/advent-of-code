@@ -11,13 +11,17 @@ $logger = new Logger();
 $dataService = new DataService();
 $timer = new Timer();
 
-if (isset($argv[3]) && (bool) $argv[3] === true) {
+$clearLog = filter_var($argv[4], FILTER_VALIDATE_BOOLEAN);
+if ($clearLog) {
     $logger->unlink();
 }
 
-$yearInput = (int) $argv[1];
-$dayInput = (int) $argv[2];
-$dayNamespace = sprintf("App\\Advent\\Year_%d\\Days\\Day%d", $yearInput, $dayInput);
+var_dump($argv);
+$GLOBALS['YEAR'] = (int) $argv[1];
+$GLOBALS['DAY'] = (int) $argv[2];
+$GLOBALS['USE_TESTFILE'] = filter_var($argv[3], FILTER_VALIDATE_BOOLEAN);
+
+$dayNamespace = sprintf("App\\Advent\\Year_%d\\Days\\Day%d", $GLOBALS['YEAR'], $GLOBALS['DAY']);
 $day = new $dayNamespace;
 
 $logger->log("Ran at: " . Date("[Y-m-d H:i:s]"));

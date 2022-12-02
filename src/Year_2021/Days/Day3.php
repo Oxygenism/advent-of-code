@@ -15,7 +15,7 @@ class Day3
 
     public function runA()
     {
-        $handle = $this->dataService->read("day3.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $bitLength = strlen(trim($handle->current()));
 
         $gamma = $epsilon = "";
@@ -48,7 +48,7 @@ class Day3
 
     public function runB()
     {
-        $handle = $this->dataService->read("day3.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
 
         $oxyGen = $this->getBitsFor(0, $handle);
         $co2Scrub = $this->getBitsFor(0, $handle, true);

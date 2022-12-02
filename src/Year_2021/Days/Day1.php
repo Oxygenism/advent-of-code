@@ -15,7 +15,7 @@ class Day1
 
     public function runA()
     {
-        $values = $this->dataService->read("day1.txt", "Year_2021");
+        $values = $this->dataService->read();
 
         $prev = $values->current();
         $count = 0;
@@ -37,7 +37,7 @@ class Day1
      */
     public function runB()
     {
-        $handle = $this->dataService->read("day1.txt", "Year_2021");
+        $handle = $this->dataService->read();
 
         $prev = [];
         $current = [];

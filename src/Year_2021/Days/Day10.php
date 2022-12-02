@@ -18,7 +18,7 @@ class Day10
 
     public function runA()
     {
-        $handle = $this->dataService->read("day10.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $illegalChars = [];
 
         while ($handle->valid()) {
@@ -61,7 +61,7 @@ class Day10
 
     public function runB()
     {
-        $handle = $this->dataService->read("day10.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $illegalChars = [];
         $validLines = [];
 

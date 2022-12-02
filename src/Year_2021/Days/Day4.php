@@ -15,8 +15,7 @@ class Day4
 
     public function runA()
     {
-//        $handle = $this->dataService->read("day4_test.txt", 'Year_2021/');
-        $handle = $this->dataService->read("day4.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $input = explode(",", $handle->current());
         $handle->next();
 
@@ -37,7 +36,7 @@ class Day4
 
     public function runB()
     {
-        $handle = $this->dataService->read("day4.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $input = explode(",", $this->sanitizeInput($handle->current()));
         $handle->next();
 

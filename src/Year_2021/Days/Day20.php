@@ -28,16 +28,16 @@ class Day20
 
     public function runA()
     {
-        return $this->run('day20.txt', 'Year_2021/');
+        return $this->run();
     }
 
     public function runB()
     {
-//        return $this->run('day0_test.txt', true);
+        return $this->run(true);
     }
 
-    public function run($file, $state = false) {
-        $handle = $this->dataService->read($file);
+    public function run($state = false) {
+        $handle = $this->dataService->read();
         $enhancementString = str_replace(['.', '#'], [0, 1], trim($handle->current()));
 
         $inputImage = "";

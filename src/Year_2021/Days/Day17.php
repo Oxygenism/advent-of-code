@@ -17,7 +17,7 @@ class Day17
 
     public function runA()
     {
-        return $this->run('day17.txt', 'Year_2021/');
+        return $this->run();
     }
 
     public function runB()
@@ -25,8 +25,8 @@ class Day17
         return $this->count;
     }
 
-    public function run($file, $state = false) {
-        $handle = $this->dataService->read($file);
+    public function run($state = false) {
+        $handle = $this->dataService->read();
         $instructions = trim($handle->current());
         $instructions = str_replace("target area: x=", "",$instructions);
         $instructions = str_replace(" y=", "", $instructions);

@@ -33,16 +33,16 @@ class Day16
 
     public function runA()
     {
-        return $this->run('day16_test.txt', 'Year_2021/');
+        return $this->run();
     }
 
     public function runB()
     {
-//        return $this->run('day16.txt', true);
+        return $this->run(true);
     }
 
-    public function run($file, $state = false) {
-        $handle = $this->dataService->read($file);
+    public function run($state = false) {
+        $handle = $this->dataService->read();
         $hex = trim($handle->current());
 
         $binary = "";

@@ -24,7 +24,7 @@ class Day22
     }
 
     public function run($file, $state = false) {
-        $handle = $this->dataService->read($file);
+        $handle = $this->dataService->read();
         while ($handle->valid()) {
             $handle->current();
 

@@ -16,7 +16,7 @@ class Day9
 
     public function runA()
     {
-        $handle = $this->dataService->read("day9.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $lineCount = $handle->count();
         $lineWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         $heightMap = [];
@@ -52,7 +52,7 @@ class Day9
 
     public function runB()
     {
-        $handle = $this->dataService->read("day9.txt", 'Year_2021/');
+        $handle = $this->dataService->read();
         $lineCount = $handle->count();
         $lineWidth = count(str_split($this->sanitizeInput(($handle->current()))));
         $heightMap = [];
