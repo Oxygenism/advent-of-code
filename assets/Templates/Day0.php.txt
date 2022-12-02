@@ -15,7 +15,8 @@ class Day{{day}}
 
     public function runA()
     {
-        return $this->run('day{{day}}_test.txt', 'Year_{{year}}/');
+        // return $this->run('day{{day}}_test.txt');
+        return $this->run('day{{day}}.txt');
     }
 
     public function runB()
@@ -23,7 +24,7 @@ class Day{{day}}
     }
 
     public function run($file, $state = false) {
-        $handle = $this->dataService->read($file);
+        $handle = $this->dataService->read($file, 'Year_{{year}}/');
         while ($handle->valid()) {
             $handle->current();
 

@@ -26,3 +26,103 @@ Result: 207968
 Executed in: 0.577ms
 
 --------------------
+Ran at: [2022-12-02 05:12:38]
+=== Day2 - RunA ===
+Result: Only a bad programmer.
+Executed in: 0.27ms
+
+=== Day2 - RunB ===
+Result: 
+Executed in: 0.039ms
+
+--------------------
+Ran at: [2022-12-02 05:13:00]
+=== Day2 - RunA ===
+Result: 0
+Executed in: 0.099ms
+
+=== Day2 - RunB ===
+Result: 
+Executed in: 0.027ms
+
+--------------------
+Ran at: [2022-12-02 05:13:13]
+=== Day2 - RunA ===
+Result: 15
+Executed in: 0.062ms
+
+=== Day2 - RunB ===
+Result: 
+Executed in: 0.067ms
+
+--------------------
+Ran at: [2022-12-02 05:13:27]
+=== Day2 - RunA ===
+Result: 11841
+Executed in: 1.021ms
+
+=== Day2 - RunB ===
+Result: 
+Executed in: 0.034ms
+
+--------------------
+Ran at: [2022-12-02 05:21:43]
+=== Day2 - RunA ===
+Result: 13022
+Executed in: 1.454ms
+
+=== Day2 - RunB ===
+Result: 12
+Executed in: 0.29ms
+
+--------------------
+Ran at: [2022-12-02 05:21:50]
+=== Day2 - RunA ===
+Result: 13022
+Executed in: 1.307ms
+
+=== Day2 - RunB ===
+Result: 13022
+Executed in: 1.302ms
+
+--------------------
+Ran at: [2022-12-02 05:24:34]
+=== Day2 - RunA ===
+Result: 7676
+Executed in: 1.259ms
+
+=== Day2 - RunB ===
+Result: 7676
+Executed in: 1.033ms
+
+--------------------
+Ran at: [2022-12-02 05:24:59]
+=== Day2 - RunA ===
+Result: 13022
+Executed in: 1.457ms
+
+=== Day2 - RunB ===
+Result: 13022
+Executed in: 1.299ms
+
+--------------------
+Ran at: [2022-12-02 05:26:49]
+=== Day2 - RunA ===
+Result: 13022
+Executed in: 1.21ms
+
+=== Day2 - RunB ===
+Result: 13022
+Executed in: 1.032ms
+
+--------------------
+Ran at: [2022-12-02 05:26:51]
+=== Day2 - RunA ===
+Result: 13022
+Executed in: 1.487ms
+
+=== Day2 - RunB ===
+Result: 13022
+Executed in: 1.44ms
+
+--------------------
