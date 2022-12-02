@@ -16,7 +16,6 @@ if ($clearLog) {
     $logger->unlink();
 }
 
-var_dump($argv);
 $GLOBALS['YEAR'] = (int) $argv[1];
 $GLOBALS['DAY'] = (int) $argv[2];
 $GLOBALS['USE_TESTFILE'] = filter_var($argv[3], FILTER_VALIDATE_BOOLEAN);
