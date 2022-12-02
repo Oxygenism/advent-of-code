@@ -39,7 +39,7 @@ class Day2
     public function runA()
     {
         $this->pointTotal = 0;
-        return $this->run('day2.txt', 'Year_2022/');
+        return $this->run('day2.txt');
     }
 
     public function runB()
