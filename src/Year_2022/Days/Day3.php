@@ -20,6 +20,16 @@ class Day3
 
     public function runA()
     {
+        $array = array(
+            'foo' => 'bar',
+            'hello' => 'world'
+        );
+
+        $OUT = join(" ", array_reduce(array_keys($array), function($as, $a) use ($array) {
+            $as[] = sprintf('%s="%s"', $a, $array[$a]); return $as;
+        }, array()));
+
+        print_r($OUT);
         return $this->run();
     }
 
