@@ -67,7 +67,7 @@ class Day4
         $boardTemplate = array_fill(0, 5, array_fill(0, 5, 0));
         $id = 0;
         while($handle->valid()) {
-            $board = new \App\Advent\Days\Board($id, $boardTemplate);
+            $board = new Board($id, $boardTemplate);
             for ($i = 0; $i < 5; $i++) {
                 $handle->next();
 

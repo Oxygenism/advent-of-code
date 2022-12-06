@@ -81,7 +81,7 @@ class Day21
             $scores[$currentTurn] += ($remainder === 0)? 10 : $remainder;
 
             $player = $currentTurn + 1;
-            echo "Player $player rolls $numbers[0]+$numbers[1]+$numbers[2] and moves to space $positions[$currentTurn] for a total score of $scores[$currentTurn] \n";
+//            echo "Player $player rolls $numbers[0]+$numbers[1]+$numbers[2] and moves to space $positions[$currentTurn] for a total score of $scores[$currentTurn] \n";
 
             $currentTurn = ($currentTurn === 0)? 1 : 0;
         }

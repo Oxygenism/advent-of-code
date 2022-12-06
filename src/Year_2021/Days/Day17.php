@@ -66,8 +66,8 @@ class Day17
                 $highestY = $startPos[1];
             }
             if ($this->withinCoords($startPos, $coords) === true) {
-                echo "\nEyyy! it hit the target \n\n";
-                echo "Current pos: x$startPos[0], y$startPos[1] | Current power: x$x, y$y \n";
+//                echo "\nEyyy! it hit the target \n\n";
+//                echo "Current pos: x$startPos[0], y$startPos[1] | Current power: x$x, y$y \n";
                 return [true, $highestY];
             }
 

@@ -15,12 +15,14 @@ class Day19
 
     public function runA()
     {
-        return $this->run();
+        return "Only a bad programmer :(";
+//        return $this->run();
     }
 
     public function runB()
     {
-        return $this->run(true);
+        return "Only a bad programmer :(";
+//        return $this->run(true);
     }
 
     public function run($state = false) {

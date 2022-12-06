@@ -155,7 +155,7 @@ class Day13
         $map = $this->map;
         foreach ($this->instructions as $instruction){
             $map = $this->fold($map, $instruction);
-            echo $this->mapToString($map);
+//            echo $this->mapToString($map);
         }
 
         return PHP_EOL . $this->mapToString($map);

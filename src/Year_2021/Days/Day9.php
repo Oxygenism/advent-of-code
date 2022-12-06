@@ -73,7 +73,7 @@ class Day9
                 $neighbours["right"] = $this->findNeighbour($heightMapObjects, $x, ($y + 1));
                 $neighbours["up"] = $this->findNeighbour($heightMapObjects, ($x - 1), $y);
                 $neighbours["down"] = $this->findNeighbour($heightMapObjects, ($x + 1), $y);
-                $current = new \App\Advent\Days\heightMapPoint(++$id, $x, $y, $heightMap[$x][$y], $neighbours);
+                $current = new heightMapPoint(++$id, $x, $y, $heightMap[$x][$y], $neighbours);
                 $current->setNeighbour();
                 $heightMapObjects[] = $current;
             }

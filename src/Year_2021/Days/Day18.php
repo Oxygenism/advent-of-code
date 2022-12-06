@@ -15,12 +15,14 @@ class Day18
 
     public function runA()
     {
-        return $this->run();
+        return "Only a bad programmer :(";
+//        return $this->run();
     }
 
     public function runB()
     {
-        return $this->run(true);
+        return "Only a bad programmer :(";
+//        return $this->run(true);
     }
 
     public function run($state = false) {
@@ -28,9 +30,6 @@ class Day18
 
         $fuckYouSlugs = $this->getSlug($handle);
         $handle->next();
-//        $fuckYouSlugs[] = $this->getSlug($handle);
-//        $handle->next();
-        print_r($fuckYouSlugs);
         while(true){
             if ($this->canExplode($fuckYouSlugs) !== false) {
                 $fuckYouSlugs = $this->slugExplode($fuckYouSlugs);
@@ -40,7 +39,6 @@ class Day18
                 $fuckYouSlugs = [$fuckYouSlugs, $this->getSlug($handle)];
                 $handle->next();
             } else {
-                //can't do either.
                 break;
             }
             print_r($fuckYouSlugs);
