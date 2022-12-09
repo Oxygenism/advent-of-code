@@ -27,7 +27,7 @@ class Day{{day}}
         $count = 0;
         $handle = $this->dataService->read();
         while ($handle->valid()) {
-            $handle->current();
+            $input = trim($handle->current());
 
             $handle->next();
         }
