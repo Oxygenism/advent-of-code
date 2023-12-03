@@ -18,6 +18,9 @@ if ($argv[1] === "all") {
     foreach ($years as $year) {
         foreach ($days as $day) {
             try {
+                $GLOBALS['YEAR'] = (int) $year;
+                $GLOBALS['DAY'] = (int) $day;
+                $GLOBALS['USE_TESTFILE'] = false;
                 $dayNamespace = sprintf("App\\Advent\\Year_%d\\Days\\Day%d", $year, $day);
                 if (class_exists($dayNamespace)) {
                     $day = new $dayNamespace;

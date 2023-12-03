@@ -7,13 +7,13 @@ use Open\Open;
 
 $templatePath = DOCUMENT_ROOT .'/Assets/Templates/';
 
-$templateTxt = $templatePath . 'Day0.txt';
-$templateTxtTest = $templatePath .'Day0_test.txt';
+$templateTxt = $templatePath . 'day0.txt';
+$templateTxtTest = $templatePath .'day0_test.txt';
 $templateScript = file_get_contents($templatePath .'Day0.php.txt');
 
 $year = (int) $argv[1];
 $day = (int) $argv[2];
-$openInBrowser = filter_var($argv[3], FILTER_VALIDATE_BOOLEAN);
+$openInBrowser = isset($argv[3]) ?? filter_var($argv[3], FILTER_VALIDATE_BOOLEAN);
 $dayFileName = "Days/Day" . $day;
 
 $assetTxtDirectory = sprintf(DOCUMENT_ROOT .'/Assets/Year_%d/', $year);
