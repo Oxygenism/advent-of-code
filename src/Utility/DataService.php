@@ -10,7 +10,7 @@ class DataService
 {
     public function read()
     {
-        $filePath = DOCUMENT_ROOT .'/assets/Year_' . $GLOBALS['YEAR'] .'/Day' . $GLOBALS['DAY'];
+        $filePath = DOCUMENT_ROOT .'/assets/Year_' . $GLOBALS['YEAR'] .'/day' . $GLOBALS['DAY'];
         if ($GLOBALS['USE_TESTFILE']) {
             $filePath .= "_test";
         }
