@@ -11,13 +11,13 @@ class Day10
     private int $maxX;
     private int $maxY;
 
-    private array $pipes = [];
-    private array $vertices;
-
     private $id = 0;
 
-    private DataService $dataService;
+    private array $pipes = [];
+    private array $vertices;
     private array $nodesAtDistance;
+
+    private DataService $dataService;
 
 
     public function __construct()
@@ -89,11 +89,14 @@ class Day10
             }
         }
 
-        $this->vertices = $this->bfs($startingPipe);
+        $this->bfs($startingPipe);
     }
 
-    // Breath first search on the pipes, starting at $startingNode
-    public function bfs(Pipe $startingNode): array
+    /**
+     * @param Pipe $startingNode
+     * @return void
+     */
+    public function bfs(Pipe $startingNode): void
     {
         $queue = [$startingNode];
         $visited = [];
@@ -118,7 +121,7 @@ class Day10
         $this->printPipeNetwork($nodesAtDistance, $distance);
         $this->nodesAtDistance = $nodesAtDistance;
 
-        return $this->getVertices($startingNode, $nodesAtDistance, $distance);
+        $this->vertices =  $this->getVertices($startingNode, $nodesAtDistance, $distance);
     }
 
     /**
@@ -183,7 +186,8 @@ class Day10
      * @param array $insidePoints
      * @return void
      */
-    public function printPipeNetwork(array $nodesAtDistance, int $highestDistance = 0, $insidePoints = []) {
+    public function printPipeNetwork(array $nodesAtDistance, int $highestDistance = 0, $insidePoints = []): void
+    {
         $outputBuffer = [];
         for ($y = 0; $y < $this->maxY; $y++) {
             $output = "";
