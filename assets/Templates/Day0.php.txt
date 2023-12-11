@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Advent\Year_{{year}}\Days;
 
 use App\Advent\Utility\DataService;
